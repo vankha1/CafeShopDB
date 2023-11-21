@@ -1,9 +1,7 @@
-
-
 const homePage = (req, res) => {
-    res.render('header');
-}
+  res.render("homepage.ejs");
+};
 
 module.exports = {
-    homePage
+  homePage,
 };

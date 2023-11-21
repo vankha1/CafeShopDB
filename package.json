@@ -11,9 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "mssql": "^10.0.1",
+    "mysql2": "^3.6.4",
     "nodemon": "^3.0.1"
   }
 }
