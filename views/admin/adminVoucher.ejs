@@ -1,0 +1,46 @@
+<%- include('../includes/header.ejs') %>
+</head>
+<body>
+    <%- include('../includes/navigation.ejs')  %>    
+    <main class="px-24 py-10">
+        <div class="flex gap-10">
+            <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
+            <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
+            <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
+            <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
+            <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
+        </div>
+
+        <div>
+            <button class=" border-2 py-2 px-4 rounded-full bg-purple-800 text-white text-center text-sm mr-5 font-medium">Them mon</button>
+            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
+            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
+        </div>
+                
+        <hr class="my-5 border border-black">
+
+        <div>
+            <h3 class="text-black text-2xl not-italic font-bold mb-5"></h3>
+            <table class="w-full">
+                <thead>
+                    <th class="w-[5%]"></th>
+                    <th class="w-[5%]">STT</th>
+                    <th class="w-[40%]">Tên</th>
+                    <th class="w-[30%]">Kho</th>
+                    <th class="w-[20%]">Giá</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>001</th>
+                        <th>
+                            Ban hop 1
+                        </th>
+                        <th>Con trong</th>
+                        <th>29.000</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+<%- include('../includes/end.ejs') %>
