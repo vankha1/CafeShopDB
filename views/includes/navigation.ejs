@@ -5,7 +5,7 @@
         </div>
         <ul class="flex justify-between items-center gap-[30px]">
             <li>
-                <a href="/homepage">Trang chủ</a>
+                <a href="/">Trang chủ</a>
             </li>
             <li>
                 <a href="/dish">Món</a>
@@ -18,12 +18,21 @@
             </li>
         </ul>
         <ul class="text-black font-bold leading-[normal]">
-            <li class="inline mr-3">
-                <a href="/login">Login</a>
-            </li>
-            <li class="inline">
-                <a href="/signup">Signup</a>
-            </li>
+            <% if(!session.user_id) { %>
+                <li class="inline mr-3">
+                    <a href="/login">Login</a>
+                </li>
+                <li class="inline">
+                    <a href="/signup">Signup</a>
+                </li>
+            <% } else { %>
+                <li class="inline">
+                    <form action="/logout" method="post">
+                        <input type="hidden" name="" id="">
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            <% } %>
         </ul>
     </nav>
 </header>
