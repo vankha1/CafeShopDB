@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const app = express();
 const port = process.env.PORT || 8080;
-
-const db = require('./config/db')
+const session = require("express-session");
+const bodyParser = require('body-parser')
+// const MySQLStore = require("express-mysql-session")(session);
 
 const userRouter = require('./route/user')
 const dishRouter = require('./route/dish')
@@ -11,14 +13,33 @@ const tableRouter = require('./route/table')
 const adminRouter = require('./route/admin')
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	resave: true,
+	saveUninitialized: true
+}));
+
 
 app.use(userRouter)
 app.use('/dish', dishRouter)
 app.use('/table', tableRouter)
 app.use('/admin', adminRouter)
+
+
+
+// Error handlers
+// app.use((err, req, res, next) => {
+//   res.status(500).render('500', {
+//     pageTitle : 'Error !'
+//   })  
+// })
+
 
 // db.connect();
 
