@@ -5,76 +5,41 @@
     <main class="px-24 py-10">
         <h2 class="text-black text-2xl not-italic font-bold mb-5">Tai khoan</h2>
         <hr class="my-5 border border-black">
-        <form action="">
+        <form action="/profile/update/<%= isAuth %>" method="post">
 
-            <div class="avatar flex items-start">
-                <h3 class="text-black not-italic font-bold mb-5 basis-1/5">
-                    Tai khoan
-                </h3>
-    
-                <div class="flex flex-col">
-                    <img class="rounded-full w-[200px] h-[200px] mb-5" src="/images/6cfbfa0af88fa50a9d19459774cdf677.png" alt="">
-    
-                    <button class="p-2 rounded-full bg-purple-800 text-white text-center text-sm not-italic font-medium leading-5">Doi anh</button>
-                </div>
-            </div>
-    
-            <hr class="my-5 border border-black">
-    
             <div class="avatar flex items-start">
                 <h3 class="text-black not-italic font-bold mb-5 basis-1/5">
                     Thong tin ca nhan
                 </h3>
     
                 <div class="flex flex-col" action="">
-                    <label for="">Email</label>
-                    <input class=" mb-5 border" type="text">
+                    <label for="email">Email</label>
+                    <input class=" mb-5 border" type="text" id="email" name="email">
     
-                    <label for="">Name</label>
-                    <input class=" mb-5 border" type="text">
+                    <label for="name">Name</label>
+                    <input class=" mb-5 border" type="text" id="name" name="name">
+
+                    <label for="password">Password</label>
+                    <input class=" mb-5 border" type="text" id="password" name="password">
     
-                    <label for="">Country</label>
-                    <input class=" mb-5 border" type="text">
+                    <label for="address">Address</label>
+                    <input class=" mb-5 border" type="text" id="address" name="address">
     
-                    <label for="">State/Provide</label>
-                    <input class=" mb-5 border" type="text">
-    
-                    <label for="">City</label>
-                    <input class=" mb-5 border" type="text">
-    
-                    <label for="">Zip code</label>
-                    <input class=" mb-5 border" type="text">
-    
-                    <label for="">Address</label>
-                    <input class=" mb-5 border" type="text">
-    
-                    <label for="">Phone number</label>
-                    <input class=" mb-5 border" type="text">
+                    <label for="phoneNumber">Phone number</label>
+                    <input class=" mb-5 border" type="text" id="phoneNumber" name="phoneNumber">
+
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input class=" mb-5 border" type="text" id="dateOfBirth" name="dateOfBirth">
+
+                    <label for="supervisorID">Supervisor ID</label>
+                    <input class=" mb-5 border" type="text" id="supervisorID" name="supervisorID">
+                    
+                    <label for="salary">Salary</label>
+                    <input class=" mb-5 border" type="text" id="salary" name="salary">
                 </div>
             </div>
-    
-            <hr class="my-5 border border-black">
-    
-            <div class="avatar flex items-start">
-                <h3 class="text-black not-italic font-bold mb-5 basis-1/5">
-                    Mat khau
-                </h3>
-    
-                <div class="flex flex-col">
-                    <button class="border-2 py-2 rounded-full bg-white-800 text-violet-800 text-center text-sm mb-5 font-medium w-[120px]">
-                        Doi mau khau
-                    </button>
-    
-                    <label for="">Old password</label>
-                    <input class=" mb-5 border" type="text">
-    
-                    <label for="">New password</label>
-                    <input class=" mb-5 border" type="text">
-                </div>
-            </div>
-            <button onsubmit="" class="border-2 py-2 rounded-full bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Luu</button>
+
+            <button type="submit" class="border-2 py-2 rounded-full bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Luu</button>
         </form>
-
-
     </main>
 <%- include('includes/end.ejs') %>

@@ -17,7 +17,6 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 
 router.get('/profile', userController.profile);
-
-router.get('/cart', userController.cartPage);
+router.post('/profile/update/:id', userController.updateProfile);
 
 module.exports = router;

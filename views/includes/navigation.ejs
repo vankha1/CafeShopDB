@@ -14,23 +14,29 @@
                 <a href="/table">Bàn</a>
             </li>
             <li>
+                <a href="/cart/invoice">Hoa don</a>
+            </li>
+            <li>
                 <a href="/admin">Quản lý</a>
             </li>
         </ul>
         <ul class="text-black font-bold leading-[normal]">
-            <% if(!session.user_id) { %>
+            <% if(!isAuth) { %>
                 <li class="inline mr-3">
                     <a href="/login">Login</a>
                 </li>
                 <li class="inline">
                     <a href="/signup">Signup</a>
                 </li>
-            <% } else { %>
+            <% } else { console.log(isAuth) %>
                 <li class="inline">
                     <form action="/logout" method="post">
                         <input type="hidden" name="" id="">
                         <button type="submit">Logout</button>
                     </form>
+                </li>
+                <li class="inline">
+                    <a href="/profile">image</a>
                 </li>
             <% } %>
         </ul>
