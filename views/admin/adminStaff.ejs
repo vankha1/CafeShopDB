@@ -21,26 +21,43 @@
 
         <div>
             <h3 class="text-black text-2xl not-italic font-bold mb-5"></h3>
+            <% if (staffs.length > 0){ %>
             <table class="w-full">
                 <thead>
                     <th class="w-[5%]"></th>
                     <th class="w-[5%]">STT</th>
-                    <th class="w-[40%]">Tên</th>
-                    <th class="w-[30%]">Kho</th>
-                    <th class="w-[20%]">Giá</th>
+                    <th class="w-[10%]">Tên</th>
+                    <th class="w-[10%]">Email</th>
+                    <th class="w-[10%]">Dia chi</th>
+                    <th class="w-[10%]">SDT</th>
+                    <th class="w-[10%]">Khac</th>
                 </thead>
                 <tbody>
+                    <% staffs.forEach(staff => { if (staff.statusNV) { %>
                     <tr>
                         <th><input type="checkbox"></th>
-                        <th>001</th>
-                        <th>
-                            Ban hop 1
+                        <th><%= staff.MaNV %></th>
+                        <th><%= staff.HoVaTen %></th>
+                        <th><%= staff.email %></th>
+                        <th><%= staff.DiaChi %></th>
+                        <th><%= staff.SDT %></th>
+                        <th class="flex">
+                            
+                            <a href="/signup" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
+
+                            <form action="/admin/staff/delete/<%= staff.MaNV %>" method="post">
+                                <input type="hidden" name="name" value="value" /> 
+                                
+                                <button type="submit" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa</button>
+                            </form>
                         </th>
-                        <th>Con trong</th>
-                        <th>29.000</th>
                     </tr>
+                    <% }}) %>
                 </tbody>
             </table>
+            <% } else { %>
+                <h3>KHONG CO NHAN VIEN</h3>
+            <% } %>
         </div>
     </main>
 <%- include('../includes/end.ejs') %>

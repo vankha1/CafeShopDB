@@ -11,34 +11,33 @@
             <a href="/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
         </div>
 
-        <div>
-            <button class=" border-2 py-2 px-4 rounded-full bg-purple-800 text-white text-center text-sm mr-5 font-medium">Them mon</button>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
-        </div>
-
         <hr class="my-5 border border-black">
 
         <div>
             <h3 class="text-black text-2xl not-italic font-bold mb-5">Ban</h3>
             <table class="w-full">
-                <thead>
-                    <th class="w-[10%]"></th>
-                    <th class="w-[40%]">Tên</th>
-                    <th class="w-[30%]">Kho</th>
-                    <th class="w-[20%]">Giá</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th class="flex justify-even items-center gap-10">
-                            <img class="w-24" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
-                            <span class="inline">Ban hop 1</span>
-                        </th>
-                        <th>Con trong</th>
-                        <th>29.000</th>
-                    </tr>
-                </tbody>
+                <% if (fullTables.length === 0){ %>
+                    Khong con ban
+                <% } else { %>
+                    <thead>
+                        <th class="w-[40%]">So thu tu</th>
+                        <th class="w-[30%]">So luong ghe</th>
+                        <th class="w-[20%]">Tinh trang</th>
+                        <th class="w-[10%]">Khac</th>
+                    </thead>
+                    <% tables.forEach(table => { %>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Ban hop <%= table.ID  %>
+                                </th>
+                                <th><%= table.seats  %></th>
+                                <th><%= table.current_status ? 'Con trong' : 'Da duoc dat'  %></th>
+                                <th><button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button></th>
+                            </tr>
+                        </tbody>
+                    <% }) %>
+                <% } %>
             </table>
         </div>
                 
@@ -49,15 +48,13 @@
             <table class="w-full">
                 <thead>
                     <th class="w-[5%]"></th>
-                    <th class="w-[5%]">STT</th>
                     <th class="w-[40%]">Tên</th>
-                    <th class="w-[30%]">Kho</th>
-                    <th class="w-[20%]">Giá</th>
+                    <th class="w-[30%]">So luong ghe</th>
+                    <th class="w-[20%]">Tinh trang</th>
                 </thead>
                 <tbody>
                     <tr>
                         <th><input type="checkbox"></th>
-                        <th>001</th>
                         <th>
                             Ban hop 1
                         </th>

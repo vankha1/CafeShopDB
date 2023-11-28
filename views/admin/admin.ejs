@@ -7,12 +7,13 @@
             <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
             <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
             <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
-            <a href="/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
-            <a href="/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
+            <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
+            <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
         </div>
 
         <div>
-            <button class=" border-2 py-2 px-4 rounded-full bg-purple-800 text-white text-center text-sm mr-5 font-medium">Them mon</button>
+            <a href="/dish/admin/add" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them mon</a>
+            
             <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
             <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
         </div>
@@ -21,27 +22,64 @@
 
         <div>
             <h3 class="text-black text-2xl not-italic font-bold mb-5">Thuc uong</h3>
-            <table class="w-full">
-                <thead>
-                    <th class="w-[10%]"></th>
-                    <th class="w-[40%]">Tên</th>
-                    <th class="w-[30%]">Kho</th>
-                    <th class="w-[20%]">Giá</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th class="flex justify-even items-center gap-10">
-                            <img class="w-24" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
-                            <span class="inline">Tra thao moc</span>
-                        </th>
-                        <th>20</th>
-                        <th>29.000</th>
-                    </tr>
-                </tbody>
+            <table class="w-50%">
+                <% if (drinkDishes.length === 0) { %>
+                    <span>Khong con thuc uong</span>
+                <% } else { %>
+                        <thead>
+                            <th class="w-[5%]"></th>
+                            <th class="w-[10%] text-violet-500">Tên</th>
+                            <th class="w-[10%] text-violet-500">Kich co</th>
+                            <th class="w-[10%] text-violet-500">Giá</th>
+                            <th class="w-[10%] text-violet-500">Khac</th>
+                        </thead>
+                        <tbody>
+                        <% drinkDishes.forEach(dish => { %>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>
+                                    <%= dish.Ten  %>
+                                </th>
+                                <th><%= dish.Kichco  %></th>
+                                <th><%= dish.Dongia  %></th>
+                                <th><a href="/dish/admin/add" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a></th>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                <% } %>
             </table>
         </div>
                 
         <hr class="my-5 border border-black">
+
+        <div>
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Mon an nhe</h3>
+            <table class="w-50%">
+                <% if (anotherDishes.length === 0) { %>
+                    <span>Khong con do an nhe</span>
+                <% } else { %>
+                        <thead>
+                            <th class="w-[5%]"></th>
+                            <th class="w-[10%] text-violet-500">Tên</th>
+                            <th class="w-[10%] text-violet-500">Kich co</th>
+                            <th class="w-[10%] text-violet-500">Giá</th>
+                            <th class="w-[10%] text-violet-500">Khac</th>
+                        </thead>
+                        <tbody>
+                        <% anotherDishes.forEach(dish => { %>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>
+                                    <%= dish.Ten  %>
+                                </th>
+                                <th><%= dish.Kichco  %></th>
+                                <th><%= dish.Dongia  %></th>
+                                <th><a href="/dish/admin/add/<%= dish.Maloaimon %><%= dish.Kichco %>" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a></th>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                <% } %>
+            </table>
+        </div>
     </main>
 <%- include('../includes/end.ejs') %>
