@@ -1,44 +1,63 @@
 <header class="">
-    <nav class="flex bg-[#CEB1E4] w-full h-[60px] px-[50px] justify-between items-center shrink-0">
-        <div>
-            <a href="/">Cafe</a>
-        </div>
-        <ul class="flex justify-between items-center gap-[30px]">
-            <li>
-                <a href="/">Trang chủ</a>
-            </li>
-            <li>
-                <a href="/dish">Món</a>
-            </li>
-            <li>
-                <a href="/table">Bàn</a>
-            </li>
-            <li>
-                <a href="/cart/invoice">Hoa don</a>
-            </li>
-            <li>
-                <a href="/admin">Quản lý</a>
-            </li>
-        </ul>
-        <ul class="text-black font-bold leading-[normal]">
-            <% if(!isAuth) { %>
-                <li class="inline mr-3">
-                    <a href="/login">Login</a>
-                </li>
-                <li class="inline">
-                    <a href="/signup">Signup</a>
-                </li>
-            <% } else { console.log(isAuth) %>
-                <li class="inline">
-                    <form action="/logout" method="post">
-                        <input type="hidden" name="" id="">
-                        <button type="submit">Logout</button>
-                    </form>
-                </li>
-                <li class="inline">
-                    <a href="/profile">image</a>
-                </li>
+  <nav
+    class="flex bg-[#CEB1E4] w-full h-[60px] px-[50px] justify-between items-center shrink-0"
+  >
+    <a class="flex flex-row items-center h-1/2 space-x-2" href="/">
+      <img class="h-full" src="coffee.png" />
+      <p class="font-bold">Cafe dữ liệu</p>
+    </a>
+    <ul class="flex justify-between items-center gap-[30px]">
+        <li>
+            <% if(pageTitle == 'Cafe Shop') {%>
+                <a class="hover:underline font-bold transition" href="/">Trang chủ</a>
+            <% } else { %>
+                <a class="hover:underline transition" href="/">Trang chủ</a>
             <% } %>
-        </ul>
-    </nav>
+      </li>
+      <li>
+        <% if(pageTitle == 'Dish') {%>
+            <a class="hover:underline font-bold transition" href="/dish">Món</a>
+        <% } else { %>
+            <a class="hover:underline transition" href="/dish">Món</a>
+        <% } %>
+      </li>
+      <li>
+        <% if(pageTitle == 'Table') {%>
+            <a class="hover:underline font-bold transition" href="/table">Bàn</a>
+        <% } else { %>
+            <a class="hover:underline transition" href="/table">Bàn</a>
+        <% } %>
+      </li>
+      <li>
+        <% if(pageTitle == 'Invoice') {%>
+            <a class="hover:underline font-bold transition" href="/cart/invoice">Hoá đơn</a>
+        <% } else { %>
+            <a class="hover:underline transition" href="/cart/invoice">Hoá đơn</a>
+        <% } %>
+      </li>
+      <li>
+        <a class="hover:underline transition" href="/admin">Quản lý</a>
+      </li>
+    </ul>
+    <ul class="text-black font-bold leading-[normal]">
+      <% if(!isAuth) { %>
+      <li class="inline mr-3">
+        <a href="/login">Đăng nhập</a>
+      </li>
+      <li class="inline">
+        <a href="/signup">Đăng ký</a>
+      </li>
+      <% } else { console.log(isAuth) %>
+      <li class="inline">
+        <form action="/logout" method="post">
+          <input type="hidden" name="" id="" />
+          <button type="submit">Đăng xuất</button>
+        </form>
+      </li>
+      <li class="inline">
+        <a href="/profile">image</a>
+      </li>
+      <% } %>
+    </ul>
+  </nav>
 </header>

@@ -27,7 +27,7 @@ const signup = (req, res) => {
         throw err;
       }
       res.redirect("/login");
-    }
+    },
   );
 };
 
@@ -50,7 +50,6 @@ const login = (req, res) => {
     const query = "SELECT MaNV, email, mk FROM nhanvien where email = ?";
 
     db.query(query, [email], (err, user) => {
-
       // if (!user || user.length === 0){
       //   res.send("Please sign up");
       //   return
@@ -114,25 +113,29 @@ const updateProfile = (req, res) => {
 
   const q = "CALL SuaThongTinNhanVien(?)";
 
-  db.query(q, [
+  db.query(
+    q,
     [
-      id,
-      name,
-      email,
-      password,
-      address,
-      dateOfBirth,
-      phoneNumber,
-      supervisorID,
-      salary,
+      [
+        id,
+        name,
+        email,
+        password,
+        address,
+        dateOfBirth,
+        phoneNumber,
+        supervisorID,
+        salary,
+      ],
     ],
-  ], (err, result) => {
-    if (err){
-      throw err
-    }
-    console.log(result);
-    res.redirect("/");
-  });
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      console.log(result);
+      res.redirect("/");
+    },
+  );
 };
 
 module.exports = {

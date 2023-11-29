@@ -19,5 +19,10 @@
     "express-session": "^1.17.3",
     "mysql2": "^3.6.4",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "flowbite": "^2.2.0",
+    "prettier-plugin-ejs": "^0.0.18",
+    "tailwindcss": "^3.3.5"
   }
 }

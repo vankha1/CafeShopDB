@@ -1,51 +1,50 @@
-const db = require('../config/db')
+const db = require("../config/db");
 
 const dishPage = (req, res) => {
-
   const q = "SELECT Maloaimon, Ten, Loaimon FROM loaimon";
 
   db.query(q, (err, dishes) => {
-    if (err){
+    if (err) {
       throw err;
     }
-    const drinkDishes = dishes.filter(dish => dish.Loaimon === 'Nuoc uong');
-    const anotherDishes = dishes.filter(dish => dish.Loaimon === 'Do an');
+    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Nuoc uong");
+    const anotherDishes = dishes.filter((dish) => dish.Loaimon === "Do an");
 
     res.render("dish.ejs", {
-      pageTitle : 'Dish',
+      pageTitle: "Dish",
       isAuth: req.session.user_id,
       drinkDishes,
-      anotherDishes
+      anotherDishes,
     });
-  })
-
+  });
 };
 
 const addToCart = (req, res) => {
-
   const nameCustomer = req.body.nameCustomer;
   const addressCustomer = req.body.addressCustomer;
 
   const result = req.body.nameDish.map((dish, index) => {
-    const sizes = ['M', 'L', 'XL'].filter(size => req.body['size' + size + (index + 1)] === 'on');
+    const sizes = ["M", "L", "XL"].filter(
+      (size) => req.body["size" + size + (index + 1)] === "on",
+    );
     return { dish, sizes };
   });
 
-  const cart = {...result, nameCustomer, addressCustomer};
+  const cart = { ...result, nameCustomer, addressCustomer };
 
   const q = "INSERT INTO customers (name, address) VALUES (?)";
-  const q1 = ""
+  const q1 = "";
 
-  db.query()
+  db.query();
 
-  res.send('Add success');
-}
+  res.send("Add success");
+};
 
 const getAddDish = (req, res) => {
-  res.render('crud/addDish.ejs', {
-    pageTitle: 'Add dish'
-  })
-}
+  res.render("crud/addDish.ejs", {
+    pageTitle: "Add dish",
+  });
+};
 
 const addDish = (req, res) => {
   const { foodType, size, price } = req.body;
@@ -75,33 +74,23 @@ const addDish = (req, res) => {
         return;
       }
 
-      res.redirect('/admin');
+      res.redirect("/admin");
     });
   });
 };
 
 const getUpdateDish = (req, res) => {
-
   const id = req.params.id;
   let dish;
 
-  
+  const q = "SELECT * FROM mon";
 
-  const q = "SELECT * FROM mon"
+  res.render("crud/addDish", {});
+};
 
-  res.render('crud/addDish', {
-    
-  })
-}
+const updateDish = (req, res) => {};
 
-const updateDish = (req, res) => {
-
-}
-
-
-const deleteDish = (req, res) => {
-
-}
+const deleteDish = (req, res) => {};
 
 module.exports = {
   dishPage,
@@ -110,5 +99,5 @@ module.exports = {
   addDish,
   getUpdateDish,
   updateDish,
-  deleteDish
+  deleteDish,
 };

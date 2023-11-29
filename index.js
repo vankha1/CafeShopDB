@@ -15,6 +15,7 @@ const voucherRouter = require("./route/voucher");
 const cartRouter = require("./route/cart");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "dist")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -23,11 +24,12 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    // secret: process.env.SESSION_SECRET,
+    secret: "chicken sauce",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 8*60*60*1000 }
-  })
+    cookie: { maxAge: 8 * 60 * 60 * 1000 },
+  }),
 );
 
 app.use(userRouter);
