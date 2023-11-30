@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <title><%= pageTitle  %></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="mt-5 mb-5 text-center text-primary"><b>Chi tiet don hang</b></h1>
+            <% carts.forEach(c => { console.log(idStaff) %>
+                <div>
+                    <label class="text-black-50">Ma mon: <%= idStaff  %></label>
+                    <span><%= c.Mamon %></span>
+                </div>
+                <div>
+                    <label class="text-black-50">Ten mon: </label>
+                    <span><%= c.TenMon %></span>
+                </div>
+                <div>
+                    <label class="text-black-50">Kich co: </label>
+                    <span><%= c.Kichco %></span>
+                </div>
+                <div>
+                    <label class="text-black-50">So luong: </label>
+                    <span><%= c.Soluong %></span>
+                </div>
+                <div>
+                    <label class="text-black-50">Gia theo ngay: </label>   
+                    <span><%= c.giatheongay %></span>
+                </div>
+                <div>
+                    <label class="text-black-50">Tong gia: </label>
+                    <span><%= c.tong_gia %></span>
+                </div>
+
+                <hr class="my-2 border border-black">
+            <% }) %>
+
+            <div>
+                <label class="text-black-50">Tong gia cua don hang: </label>
+                <span><%= sumOfPrices %></span>
+            </div>
+
+            <% if (!path.startsWith('/admin')) { %>
+                <form action="/cart/invoice/export" method="post">
+                    <input type="hidden" id="cartId" name="cartId" value="<%= idCart %>">
+                    <input type="hidden" id="staffId" name="staffId" value="<%= idStaff %>">
+                    <input type="hidden" id="priceSum" name="priceSum" value="<%= sumOfPrices %>">
+                    <button type="submit">Xuat</button>
+                </form>
+            <% } %>
+        </div>
+    </body>
+</html>

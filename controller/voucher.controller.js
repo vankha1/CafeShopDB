@@ -26,7 +26,7 @@ const addVoucher = (req, res) => {
 
         const isExist = cards.some(card => card.STT === parseInt(stt));
 
-        console.log(isExist, cards);
+        // console.log(isExist, cards);
         
         if (isExist) {
             res.send("card already exists");
@@ -62,7 +62,7 @@ const deleteVoucher = (req, res) => {
 
         const isExist = cards.some(card => card.STT === parseInt(stt));
 
-        console.log(isExist, cards);
+        // console.log(isExist, cards);
         
         if (!isExist) {
             res.send("card doesn't exists");

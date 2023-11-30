@@ -60,6 +60,7 @@ const login = (req, res) => {
         for (let i = 0; i < user.length; i++) {
           if (user[i].mk === password) {
             req.session.user_id = user[i].MaNV;
+            req.session.save();
             res.redirect("/");
           }
         }
@@ -82,7 +83,7 @@ const homePage = (req, res) => {
 
   db.query(q, (err, dishTypes) => {
     if (err) {
-      next(err);
+      throw err;
     }
     res.render("homepage.ejs", {
       isAuth: req.session.user_id,

@@ -24,7 +24,7 @@
             <% if (voucher.length > 0){ %>
             <table class="w-full">
                 <thead>
-                    <th class="w-[5%]"></th>
+                    <!-- <th class="w-[5%]"></th> -->
                     <th class="w-[5%]">STT</th>
                     <th class="w-[10%]">Phan tram giam gia</th>
                     <th class="w-[10%]">Ghi chu</th>
@@ -37,14 +37,14 @@
                 <tbody>
                     <% voucher.forEach(v => { %>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <!-- <th><input type="checkbox"></th> -->
                         <th><%= v.id %></th>
                         <th>
                             <%= v.discount_percent  %>
                         </th>
-                        <th><%= v.note  %></th>
+                        <th><%= v.note ? v.note : 'Khong co note'  %></th>
                         <th><%= v.max_discount  %></th>
-                        <th><%= v.number  %></th>
+                        <th><%= v.number === 0 ? 'Da het the voucher' : v.number  %></th>
                         <th><%= v.start_time  %></th>
                         <th><%= v.end_time  %></th>
                         <th class="flex">

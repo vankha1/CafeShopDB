@@ -10,37 +10,43 @@
             <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
             <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
         </div>
-
+<!-- 
         <div>
             <button class=" border-2 py-2 px-4 rounded-full bg-purple-800 text-white text-center text-sm mr-5 font-medium">Them mon</button>
             <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
             <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
-        </div>
+        </div> -->
                 
         <hr class="my-5 border border-black">
 
         <div>
             <h3 class="text-black text-2xl not-italic font-bold mb-5"></h3>
+            <% if (orders?.length > 0) { %>
             <table class="w-full">
                 <thead>
                     <th class="w-[5%]"></th>
                     <th class="w-[5%]">STT</th>
-                    <th class="w-[40%]">Tên</th>
-                    <th class="w-[30%]">Kho</th>
-                    <th class="w-[20%]">Giá</th>
+                    <th class="w-[20%]">So luong mon</th>
+                    <th class="w-[30%]">Tong gia goc</th>
+                    <th class="w-[20%]">Tong gia sau uu dai</th>
+                    <th class="w-[20%]">Khac</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>001</th>
-                        <th>
-                            Ban hop 1
-                        </th>
-                        <th>Con trong</th>
-                        <th>29.000</th>
-                    </tr>
+                    <% orders?.forEach(order => { %>
+                        <tr class="h-[50px]">
+                            <th><input type="checkbox"></th>
+                            <th><%= order.MaDonHang  %></th>
+                            <th><%= order.SoLuongMon %></th>
+                            <th><%= order.TongGiaGoc %></th>
+                            <th><%= order.TongGiaSauUuDai %></th>
+                            <th><a href="/admin/cart/view/<%= order.MaDonHang  %>" class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</a></th>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
+            <% } else { %>
+                <h2>KHONG CO DON HANG</h2>
+            <% } %>
         </div>
     </main>
 <%- include('../includes/end.ejs') %>
