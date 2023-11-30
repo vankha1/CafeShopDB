@@ -5,60 +5,78 @@
     <main class="px-24 py-10">
         <form action="/dish/add-to-cart" method="post">
             <h2 class="text-black text-2xl font-bold mb-5">Thuc uong</h2>
-            <% if (drinkDishes.length > 0){ %>
-                <% drinkDishes.forEach(dish => { console.log(dish) %>
-                    <div class="flex w-56 flex-col items-start gap-5">
-                        <div class="image">
-                            <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
-                        </div>
-                        <div class="title text-black text-left font-bold"><%= dish.Ten  %></div>
-                        <input type="hidden" id="nameDish" name="nameDish" value="<%= dish.Ten  %>">
-                        <div class="flex justify-between items-center self-stretch">
-                            <input type="checkbox" id="size" name="size"><strong>M</strong>&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox" id="size" name="size"><strong>L</strong>&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox" id="size" name="size"><strong>XL</strong>&nbsp;&nbsp;&nbsp;
-                        </div>
-                    </div>
-                <% }) %>
-            <% } else { %>
-                <h3>KHONG CON THUC UONG</h3>
-            <% } %>
-            
-            <hr class="my-5 border border-black">
-
-            <h2 class="text-black text-2xl font-bold mb-5">Mon an nhe</h2>
             <div class="flex gap-20">
-                <div class="flex w-56 flex-col justify-between align-center gap-5">
-                    <% if (anotherDishes.length > 0){ %>
-                        <% anotherDishes.forEach(dish => { console.log(dish) %>
+                <% if (drinkDishes.length > 0){ %>
+                    <% drinkDishes.forEach(dish => { console.log(dish) %>
+                        <div class="flex w-56 flex-col justify-between align-center gap-5">
                             <div class="image">
                                 <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
                             </div>
                             <label for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten  %></label>
                             <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
                             <div class="flex justify-between items-center self-stretch">
-                                <input type="checkbox" id="size" name="sizeM<%= dish.Maloaimon  %>"><strong>M</strong>&nbsp;&nbsp;&nbsp;
-                                <input type="checkbox" id="size" name="sizeL<%= dish.Maloaimon  %>"><strong>L</strong>&nbsp;&nbsp;&nbsp;
-                                <input type="checkbox" id="size" name="sizeXL<%= dish.Maloaimon  %>"><strong>XL</strong>&nbsp;&nbsp;&nbsp;
+                                <% for(let i = 0; i < dish.Kichco.length; i++) { %>
+                                    <input type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>"><strong><%= dish.Kichco[i] %></strong>
+                                    <input class="w-[30px] border-2 border-black" type="text" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;&nbsp;&nbsp;
+                                    <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                                <% } %>
                             </div>
+                        </div>
                         <% }) %>
                     <% } else { %>
                         <h3>KHONG CON DO AN NHE</h3>
-                    <% } %>
+                <% } %>
+            </div>
+
+            <hr class="my-5 border border-black">
+
+            <h2 class="text-black text-2xl font-bold mb-5">Mon an nhe</h2>
+            <div class="flex gap-20">
+                <% if (anotherDishes.length > 0){ %>
+                    <% anotherDishes.forEach(dish => { console.log(dish) %>
+                        <div class="flex w-56 flex-col justify-between align-center gap-5">
+                            <div class="image">
+                                <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
+                            </div>
+                            <label for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten  %></label>
+                            <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
+                            <div class="flex justify-between items-center self-stretch">
+                                <% for(let i = 0; i < dish.Kichco.length; i++) { %>
+                                    <input type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>"><strong><%= dish.Kichco[i] %></strong>
+                                    <input class="w-[30px] border-2 border-black" type="text" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;&nbsp;&nbsp;
+                                    <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                                <% } %>
+                            </div>
+                        </div>
+                        <% }) %>
+                    <% } else { %>
+                        <h3>KHONG CON DO AN NHE</h3>
+                <% } %>
+            </div>
+            <div class="customer mt-20">
+                <h2 class="mb-3">THONG TIN KHACH HANG</h2>
+                <div class="mb-3">
+                    <label for="nameCustomer">Ten</label><br>
+                    <input class="p-1 border w-[500px]" type="text" id="nameCustomer" name="nameCustomer">
                 </div>
-                <div class="customer">
-                    <h2>THONG TIN KHACH HANG</h2>
-                    <div>
-                        <label for="nameCustomer">Name</label><br>
-                        <input class="p-1 border w-[500px]" type="text" id="nameCustomer" name="nameCustomer">
-                    </div>
-                    <div>
-                        <label for="addressCustomer">Address</label><br>
-                        <input class="p-1 border w-[500px]" type="text" id="addressCustomer" name="addressCustomer">
-                    </div>
+                <div class="mb-3">
+                    <label for="addressCustomer">Dia chi</label><br>
+                    <input class="p-1 border w-[500px]" type="text" id="addressCustomer" name="addressCustomer">
+                </div>
+                <div class="mb-3">
+                    <label for="cardNumber">So the</label><br>
+                    <input class="p-1 border w-[500px]" type="text" id="cardNumber" name="cardNumber">
+                </div>
+                <div class="mb-3">
+                    <label for="voucherId">Ma voucher</label><br>
+                    <input class="p-1 border w-[500px]" type="text" id="voucherId" name="voucherId">
+                </div>
+                <div class="mb-3">
+                    <label for="voucherSerial">So thu tu voucher</label><br>
+                    <input class="p-1 border w-[500px]" type="text" id="voucherSerial" name="voucherSerial">
                 </div>
             </div>
-            <button type="submit" class="p-2 rounded-lg bg-purple-800 text-white text-center text-sm not-italic font-medium leading-5 float-right">Dat</button>
+            <button type="submit" class="py-2 px-10 rounded-lg bg-purple-800 text-white text-center text-sm not-italic font-medium leading-5 float-right">Dat</button>
         </form>
         
     </main>

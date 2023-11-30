@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get('/', tableController.tablePage);
 
+router.post('/add-table-to-cart', tableController.addTableToCart);
+
 module.exports = router;

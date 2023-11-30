@@ -23,7 +23,7 @@
                         <th class="w-[40%]">So thu tu</th>
                         <th class="w-[30%]">So luong ghe</th>
                         <th class="w-[20%]">Tinh trang</th>
-                        <th class="w-[10%]">Khac</th>
+                        <!-- <th class="w-[10%]">Khac</th> -->
                     </thead>
                     <% tables.forEach(table => { %>
                         <tbody>
@@ -33,7 +33,6 @@
                                 </th>
                                 <th><%= table.seats  %></th>
                                 <th><%= table.current_status ? 'Con trong' : 'Da duoc dat'  %></th>
-                                <th><button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button></th>
                             </tr>
                         </tbody>
                     <% }) %>
@@ -43,26 +42,33 @@
                 
         <hr class="my-5 border border-black">
 
-        <div>
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Lich su dat ban</h3>
-            <table class="w-full">
-                <thead>
-                    <th class="w-[5%]"></th>
-                    <th class="w-[40%]">Tên</th>
-                    <th class="w-[30%]">So luong ghe</th>
-                    <th class="w-[20%]">Tinh trang</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>
-                            Ban hop 1
-                        </th>
-                        <th>Con trong</th>
-                        <th>29.000</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <form action="/admin/table/detail" method="post">
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Tinh tong doanh thu theo ban</h3>
+            <div class="mb-3">
+                <label for="tableId">Ma ban</label><br>
+                <input class="p-1 border w-[500px]" type="text" id="tableId" name="tableId">
+            </div>
+            <div class="mb-3">
+                <div class="inline-block mr-5">
+                    <label for="startDate">Ngay bat dau</label><br>
+                    <input class="p-1 border w-[500px]" type="date" id="startDate" name="startDate">
+                </div>
+                <div class="inline-block">
+                    <label for="startTime">Gio bat dau</label><br>
+                    <input class="p-1 border w-[500px]" type="time" id="startTime" name="startTime">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="inline-block mr-5">
+                    <label for="endDate">Ngay ket thuc</label><br>
+                    <input class="p-1 border w-[500px]" type="date" id="endDate" name="endDate">
+                </div>
+                <div class="inline-block">
+                    <label for="endTime">Gio ket thuc</label><br>
+                    <input class="p-1 border w-[500px]" type="time" id="endTime" name="endTime">
+                </div>
+            </div>
+            <button type="submit" class=" border-2 py-2 px-4 rounded-full bg-violet-800 text-white text-center text-sm mr-5 font-medium float-right">Chi tiet</button>
+        </form>
     </main>
 <%- include('../includes/end.ejs') %>
