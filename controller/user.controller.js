@@ -8,31 +8,31 @@ const getSignup = (req, res, next) => {
 };
 
 const signup = (req, res, next) => {
-  try {
-    const { email, password, fullname, address, dateOfBirth, phoneNumber } =
-      req.body;
+  const { email, password, fullname, address, dateOfBirth, phoneNumber } =
+    req.body;
 
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters");
-    }
-    if (!utils.isValidDate(dateOfBirth)) alert("Please enter a valid date");
-
-    const q =
-      "INSERT INTO nhanvien (HoVaTen, email, password, DiaChi, NgaySinh, SDT, statusNV) VALUES (?)";
-
-    db.query(
-      q,
-      [[fullname, email, password, address, dateOfBirth, phoneNumber, 1]],
-      (err, result) => {
-        if (err) {
-          throw err;
-        }
-        res.redirect("/login");
-      }
-    );
-  } catch (err) {
-    res.status(500).send('Error: ' + err.message);
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters");
   }
+  if (!utils.isValidDate(dateOfBirth)) alert("Please enter a valid date");
+
+  const q =
+    "INSERT INTO nhanvien (HoVaTen, email, password, DiaChi, NgaySinh, SDT, statusNV) VALUES (?)";
+
+  db.query(
+    q,
+    [[fullname, email, password, address, dateOfBirth, phoneNumber, 1]],
+    (err, result) => {
+      if (err) {
+        res.status(500).render("500.ejs", {
+          pageTitle: "Error !",
+          message: err.message,
+        });
+        return;
+      }
+      res.redirect("/login");
+    }
+  );
 };
 
 const getLogin = (req, res, next) => {
@@ -82,22 +82,22 @@ const logout = (req, res, next) => {
 };
 
 const homePage = (req, res, next) => {
-  try {
-    const q = "SELECT * FROM mon";
-  
-    db.query(q, (err, dishTypes) => {
-      if (err) {
-        throw err;
-      }
-      res.render("homepage.ejs", {
-        isAuth: req.session.user_id,
-        pageTitle: "Cafe Shop",
-        dishTypes,
+  const q = "SELECT * FROM mon";
+
+  db.query(q, (err, dishTypes) => {
+    if (err) {
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
       });
+      return;
+    }
+    res.render("homepage.ejs", {
+      isAuth: req.session.user_id,
+      pageTitle: "Cafe Shop",
+      dishTypes,
     });
-  } catch (err) {
-    res.status(500).send('Error: ' + err.message);
-  }
+  });
 };
 
 const profile = (req, res, next) => {
@@ -108,47 +108,47 @@ const profile = (req, res, next) => {
 };
 
 const updateProfile = (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const {
-      email,
-      name,
-      password,
-      address,
-      phoneNumber,
-      dateOfBirth,
-      supervisorID,
-      salary,
-    } = req.body;
-  
-    const q = "CALL SuaThongTinNhanVien(?)";
-  
-    db.query(
-      q,
+  const id = req.params.id;
+  const {
+    email,
+    name,
+    password,
+    address,
+    phoneNumber,
+    dateOfBirth,
+    supervisorID,
+    salary,
+  } = req.body;
+
+  const q = "CALL SuaThongTinNhanVien(?)";
+
+  db.query(
+    q,
+    [
       [
-        [
-          id,
-          name,
-          email,
-          password,
-          address,
-          dateOfBirth,
-          phoneNumber,
-          supervisorID,
-          salary,
-        ],
+        id,
+        name,
+        email,
+        password,
+        address,
+        dateOfBirth,
+        phoneNumber,
+        supervisorID,
+        salary,
       ],
-      (err, result) => {
-        if (err) {
-          throw err;
-        }
-        console.log(result);
-        res.redirect("/");
+    ],
+    (err, result) => {
+      if (err) {
+        res.status(500).render("500.ejs", {
+          pageTitle: "Error !",
+          message: err.message,
+        });
+        return;
       }
-    );
-  } catch (err) {
-    res.status(500).send('Error: ' + err.message);
-  }
+      console.log(result);
+      res.redirect("/");
+    }
+  );
 };
 
 module.exports = {
