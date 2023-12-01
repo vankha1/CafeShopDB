@@ -112,6 +112,7 @@ const addToCart = (req, res) => {
 const getAddDish = (req, res) => {
   res.render("crud/addDish.ejs", {
     pageTitle: "Add dish",
+    nameBtn: 'Them'
   });
 };
 
@@ -156,17 +157,78 @@ const addDish = (req, res) => {
 };
 
 const getUpdateDish = (req, res) => {
-  const id = req.params.id;
-  let dish;
+  try {
+    const id = req.params.id;
+  
+    const maLoaiMon = id.match(/\d+/g).join('');
+    const size = id.replace(/[0-9]/g, '');
 
-  const q = "SELECT * FROM mon";
+    console.log(maLoaiMon, size);
+    const q = "SELECT * FROM mon WHERE Maloaimon = ? AND Kichco = ?";
+  
+    db.query(q, [[maLoaiMon], [size]], (err, dish) => {
+      if (err) throw err;
+      res.render("crud/addDish", {
+        pageTitle: 'Update dish',
+        dish: dish[0],
+        nameBtn: 'Cap nhat'
+      });
+    })
+  } catch (err) {
+    if (!err.statusCode){
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 
-  res.render("crud/addDish", {});
 };
 
-const updateDish = (req, res) => {};
+const updateDish = (req, res) => {
+  try {
+    const { foodType, size, price } = req.body;
 
-const deleteDish = (req, res) => {};
+    // console.log(foodType, size, price );
+    // res.send('...')
+    // return;
+  
+    const q = "UPDATE mon SET Dongia = ? WHERE Maloaimon = ? AND Kichco = ?";
+  
+    db.query(q, [price, foodType, size] ,(err, result) => {
+      if (err) {
+        throw err;
+      }
+      console.log(result);
+      res.redirect('/admin');
+    });
+  } catch (err) {
+    if (!err.statusCode){
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+const deleteDish = (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    const maLoaiMon = id.match(/\d+/g).join('');
+    const size = id.replace(/[0-9]/g, '');
+
+    const q = "DELETE FROM mon WHERE Maloaimon = ? AND Kichco = ?";
+
+    db.query(q, [maLoaiMon, size], (err) => {
+      if (err) throw err;
+
+      res.redirect('/admin');
+    })
+  } catch (err) {
+    if (!err.statusCode){
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
 
 module.exports = {
   dishPage,

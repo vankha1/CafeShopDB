@@ -24,7 +24,6 @@
             <% if (orders?.length > 0) { %>
             <table class="w-full">
                 <thead>
-                    <th class="w-[5%]"></th>
                     <th class="w-[5%]">STT</th>
                     <th class="w-[20%]">So luong mon</th>
                     <th class="w-[30%]">Tong gia goc</th>
@@ -34,7 +33,6 @@
                 <tbody>
                     <% orders?.forEach(order => { %>
                         <tr class="h-[50px]">
-                            <th><input type="checkbox"></th>
                             <th><%= order.MaDonHang  %></th>
                             <th><%= order.SoLuongMon %></th>
                             <th><%= order.TongGiaGoc %></th>
