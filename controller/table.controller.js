@@ -1,6 +1,6 @@
 const db = require('../config/db')
 
-const tablePage = (req, res) => {
+const tablePage = (req, res, next) => {
   try {
     const q = "SELECT * FROM (bookingtables)"
   
@@ -25,7 +25,7 @@ const tablePage = (req, res) => {
   }
 };
 
-const addTableToCart = (req, res) => {
+const addTableToCart = (req, res, next) => {
 
   // console.log(req.body);
   // res.send('Add success');

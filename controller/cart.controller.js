@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-const invoicePage = (req, res) => {
+const invoicePage = (req, res, next) => {
   try {
     const q = "SELECT * FROM donhang";
   
@@ -20,7 +20,7 @@ const invoicePage = (req, res) => {
   }
 };
 
-const viewBeforeExport = (req, res) => {
+const viewBeforeExport = (req, res, next) => {
   try {
     const id = req.params.id;
     const q = "CALL showOrderInfo (?)";
@@ -49,7 +49,7 @@ const viewBeforeExport = (req, res) => {
   }
 };
 
-const invoiceExport = (req, res) => {
+const invoiceExport = (req, res, next) => {
   try {
     const { cartId, staffId, priceSum } = req.body;
   

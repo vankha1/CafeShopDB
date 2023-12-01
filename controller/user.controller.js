@@ -1,13 +1,13 @@
 const db = require("../config/db");
 const utils = require("../utils/validateDate");
 
-const getSignup = (req, res) => {
+const getSignup = (req, res, next) => {
   res.render("auth/signup.ejs", {
     pageTitle: "Signup",
   });
 };
 
-const signup = (req, res) => {
+const signup = (req, res, next) => {
   try {
     const { email, password, fullname, address, dateOfBirth, phoneNumber } =
       req.body;
@@ -35,13 +35,13 @@ const signup = (req, res) => {
   }
 };
 
-const getLogin = (req, res) => {
+const getLogin = (req, res, next) => {
   res.render("auth/login.ejs", {
     pageTitle: "Login",
   });
 };
 
-const login = (req, res) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
 
   if (email === "vovankha@gmail.com" && password === "123456") {
@@ -74,14 +74,14 @@ const login = (req, res) => {
   }
 };
 
-const logout = (req, res) => {
+const logout = (req, res, next) => {
   req.session.destroy((err) => {
     if (err) console.log(err);
     res.redirect("/");
   });
 };
 
-const homePage = (req, res) => {
+const homePage = (req, res, next) => {
   try {
     const q = "SELECT * FROM mon";
   
@@ -100,14 +100,14 @@ const homePage = (req, res) => {
   }
 };
 
-const profile = (req, res) => {
+const profile = (req, res, next) => {
   res.render("profile.ejs", {
     pageTitle: "Profile",
     isAuth: req.session.user_id,
   });
 };
 
-const updateProfile = (req, res) => {
+const updateProfile = (req, res, next) => {
   try {
     const id = req.params.id;
     const {

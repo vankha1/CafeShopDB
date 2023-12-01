@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-const adminPage = (req, res) => {
+const adminPage = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     if (req.session.user_id !== "admin") {
@@ -33,7 +33,7 @@ const adminPage = (req, res) => {
   }
 };
 
-const adminTablePage = (req, res) => {
+const adminTablePage = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     if (req.session.user_id !== "admin") {
@@ -65,7 +65,7 @@ const adminTablePage = (req, res) => {
   }
 };
 
-const adminTableDetail = (req, res) => {
+const adminTableDetail = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     const { tableId, startDate, startTime, endDate, endTime } = req.body;
@@ -98,7 +98,7 @@ const adminTableDetail = (req, res) => {
   }
 };
 
-const adminCartPage = (req, res) => {
+const adminCartPage = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     if (req.session.user_id !== "admin") {
@@ -124,7 +124,7 @@ const adminCartPage = (req, res) => {
   }
 };
 
-const adminCartView = (req, res) => {
+const adminCartView = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     const id = parseInt(req.params.id);
@@ -155,7 +155,7 @@ const adminCartView = (req, res) => {
 
 // Voucher
 
-const adminVoucherPage = (req, res) => {
+const adminVoucherPage = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     if (req.session.user_id !== "admin") {
@@ -194,7 +194,7 @@ const adminVoucherPage = (req, res) => {
 
 // Staff
 
-const adminStaffPage = (req, res) => {
+const adminStaffPage = (req, res, next) => {
   try {
     console.log(req.session.user_id);
     if (req.session.user_id !== "admin") {
@@ -223,7 +223,7 @@ const adminStaffPage = (req, res) => {
   }
 };
 
-const deleteStaff = (req, res) => {
+const deleteStaff = (req, res, next) => {
   try {
     const id = req.params.id;
 

@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-const getAddVoucher = (req, res) => {
+const getAddVoucher = (req, res, next) => {
   const id = req.params.id;
 
   res.render("crud/addVoucher.ejs", {
@@ -10,7 +10,7 @@ const getAddVoucher = (req, res) => {
   });
 };
 
-const addVoucher = (req, res) => {
+const addVoucher = (req, res, next) => {
   try {
     const id = req.params.id;
     const stt = req.body.stt;
@@ -46,7 +46,7 @@ const addVoucher = (req, res) => {
   }
 };
 
-const getDeleteVoucher = (req, res) => {
+const getDeleteVoucher = (req, res, next) => {
   const id = req.params.id;
 
   res.render("crud/addVoucher.ejs", {
@@ -55,7 +55,7 @@ const getDeleteVoucher = (req, res) => {
     option: "delete",
   });
 };
-const deleteVoucher = (req, res) => {
+const deleteVoucher = (req, res, next) => {
   try {
     const id = req.params.id;
     const stt = req.body.stt;
