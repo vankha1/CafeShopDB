@@ -3,7 +3,7 @@ const utils = require("../utils/validateDate");
 
 const getSignup = (req, res, next) => {
   res.render("auth/signup.ejs", {
-    pageTitle: "Signup",
+    pageTitle: "Them nhan vien",
   });
 };
 
@@ -11,28 +11,65 @@ const signup = (req, res, next) => {
   const { email, password, fullname, address, dateOfBirth, phoneNumber } =
     req.body;
 
+  const salary = parseInt(req.body.salary);
+  const supervisorID = parseInt(req.body.supervisorID);
+
   if (password.length < 6) {
-    alert("Password must be at least 6 characters");
+    const error = new Error("Password must be at least 6 characters");
+    res.status(500).render("500.ejs", {
+      pageTitle: "Error !",
+      message: error.message,
+    });
+    return;
   }
-  if (!utils.isValidDate(dateOfBirth)) alert("Please enter a valid date");
 
-  const q =
-    "INSERT INTO nhanvien (HoVaTen, email, password, DiaChi, NgaySinh, SDT, statusNV) VALUES (?)";
+  const q = "SELECT MaNV FROM nhanvien WHERE statusNV = 1";
 
-  db.query(
-    q,
-    [[fullname, email, password, address, dateOfBirth, phoneNumber, 1]],
-    (err, result) => {
-      if (err) {
-        res.status(500).render("500.ejs", {
-          pageTitle: "Error !",
-          message: err.message,
-        });
-        return;
-      }
-      res.redirect("/login");
+  db.query(q, (err, staffs) => {
+    if (err) {
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
     }
-  );
+    if (!staffs.some((staff) => staff.MaNV === supervisorID)) {
+      const error = new Error("The supervisor does not exists");
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: error.message,
+      });
+      return;
+    }
+    const q1 = "CALL ThemNhanVien(?)";
+
+    db.query(
+      q1,
+      [
+        [
+          fullname,
+          email,
+          password,
+          address,
+          dateOfBirth,
+          phoneNumber,
+          supervisorID,
+          salary,
+        ],
+      ],
+      (err, result) => {
+        if (err) {
+          res.status(500).render("500.ejs", {
+            pageTitle: "Error !",
+            message: err.message,
+          });
+          return;
+        }
+        console.log(result);
+        res.redirect("/admin/staff");
+      }
+    );
+  });
 };
 
 const getLogin = (req, res, next) => {
@@ -82,7 +119,7 @@ const logout = (req, res, next) => {
 };
 
 const homePage = (req, res, next) => {
-  const q = "SELECT * FROM mon";
+  const q = "SELECT * FROM loaimon";
 
   db.query(q, (err, dishTypes) => {
     if (err) {
@@ -101,9 +138,25 @@ const homePage = (req, res, next) => {
 };
 
 const profile = (req, res, next) => {
-  res.render("profile.ejs", {
-    pageTitle: "Profile",
-    isAuth: req.session.user_id,
+  const id = req.session.user_id;
+  console.log(id);
+
+  const q = "SELECT * FROM nhanvien WHERE MaNV = ?";
+
+  db.query(q, [id], (err, staff) => {
+    if (err) {
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+    console.log(staff);
+    res.render("profile.ejs", {
+      pageTitle: "Profile",
+      isAuth: req.session.user_id,
+      staff: staff[0],
+    });
   });
 };
 

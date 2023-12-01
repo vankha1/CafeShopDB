@@ -5,20 +5,39 @@
         </div>
         <ul class="flex justify-between items-center gap-[30px]">
             <li>
-                <a href="/">Trang chủ</a>
+                <% if(pageTitle == 'Cafe Shop') {%>
+                    <a class="hover:underline font-bold transition" href="/">Trang chủ</a>
+                <% } else { %>
+                    <a class="hover:underline transition" href="/">Trang chủ</a>
+                <% } %>
+            </li>
+            <% if (isAuth !== 'admin'){ %>
+            <li>
+                <% if(pageTitle == 'Dish') {%>
+                    <a class="hover:underline font-bold transition" href="/dish">Món</a>
+                <% } else { %>
+                    <a class="hover:underline transition" href="/dish">Món</a>
+                <% } %>
             </li>
             <li>
-                <a href="/dish">Món</a>
+                <% if(pageTitle == 'Table') {%>
+                    <a class="hover:underline font-bold transition" href="/table">Bàn</a>
+                <% } else { %>
+                    <a class="hover:underline transition" href="/table">Bàn</a>
+                <% } %>
             </li>
             <li>
-                <a href="/table">Bàn</a>
-            </li>
+                <% if(pageTitle == 'Invoice') {%>
+                    <a class="hover:underline font-bold transition" href="/cart/invoice">Hoá đơn</a>
+                <% } else { %>
+                    <a class="hover:underline transition" href="/cart/invoice">Hoá đơn</a>
+                <% } %>
+              </li>
+            <% } else { %>
             <li>
-                <a href="/cart/invoice">Hoa don</a>
+                <a class="hover:underline transition" href="/admin">Quản lý</a>
             </li>
-            <li>
-                <a href="/admin">Quản lý</a>
-            </li>
+            <% } %>
         </ul>
         <ul class="text-black font-bold leading-[normal]">
             <% if(!isAuth) { %>
@@ -28,16 +47,18 @@
                 <li class="inline">
                     <a href="/signup">Signup</a>
                 </li>
-            <% } else { console.log(isAuth) %>
+            <% } else { %>
                 <li class="inline">
                     <form action="/logout" method="post">
                         <input type="hidden" name="" id="">
                         <button type="submit">Logout</button>
                     </form>
                 </li>
+                <% if (isAuth !== 'admin') { %>
                 <li class="inline">
                     <a href="/profile">image</a>
                 </li>
+                <% } %>
             <% } %>
         </ul>
     </nav>
