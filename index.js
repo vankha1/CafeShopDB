@@ -39,7 +39,7 @@ app.use("/cart", cartRouter);
 
 // Error handlers
 app.use((err, req, res, next) => {
-  res.status(500).render('500', {
+  res.status(500).render('500.ejs', {
     pageTitle : 'Error !',
     message: err.message
   })
