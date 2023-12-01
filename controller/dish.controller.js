@@ -138,7 +138,7 @@ const addDish = (req, res) => {
       if (foodType > count || foodType <= 0) {
         res.send("Please select a different food type");
         return;
-      }
+      }  
   
       const q2 = "INSERT INTO mon (Maloaimon, Kichco, Dongia) VALUES (?)";
   
