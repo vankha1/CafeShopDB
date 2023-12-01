@@ -119,6 +119,10 @@ const getAddDish = (req, res) => {
 const addDish = (req, res) => {
   try {
     const { foodType, size, price } = req.body;
+
+    // console.log(foodType, size, price);
+    // res.send('fsa')
+    // return;
   
     const q1 = "SELECT count(*) as count FROM loaimon";
   
@@ -136,13 +140,11 @@ const addDish = (req, res) => {
         return;
       }
   
-      const q2 = "INSERT INTO mon (Maloaimon, Kichco, Dongia) VALUES (?, ?, ?)";
+      const q2 = "INSERT INTO mon (Maloaimon, Kichco, Dongia) VALUES (?)";
   
-      db.query(q2, [foodType, size, price], (err, result) => {
+      db.query(q2, [[foodType, size, price]], (err, result) => {
         if (err) {
-          console.log(err);
-          res.send("Error executing query");
-          return;
+          throw err;
         }
   
         res.redirect("/admin");
