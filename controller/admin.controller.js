@@ -23,7 +23,7 @@ const adminPage = (req, res, next) => {
 
     res.render("admin/admin.ejs", {
       pageTitle: "Admin",
-      isAuth: true,
+      isAuth: req.session.user_id,
       drinkDishes,
       anotherDishes,
     });
@@ -52,7 +52,7 @@ const adminTablePage = (req, res, next) => {
 
     res.render("admin/adminTable.ejs", {
       pageTitle: "Admin",
-      isAuth: true,
+      isAuth: req.session.user_id,
       tables,
       fullTables,
     });
@@ -110,7 +110,7 @@ const adminCartPage = (req, res, next) => {
     }
     res.render("admin/adminCart.ejs", {
       pageTitle: "Admin",
-      isAuth: true,
+      isAuth: req.session.user_id,
       orders,
     });
   });
@@ -137,6 +137,7 @@ const adminCartView = (req, res, next) => {
     });
     res.render("crud/viewCart.ejs", {
       pageTitle: "View detail cart",
+      isAuth: req.session.user_id,
       carts: result[0],
       sumOfPrices,
       path: "/admin/cart/view",
@@ -173,7 +174,7 @@ const adminVoucherPage = (req, res, next) => {
 
     res.render("admin/adminVoucher.ejs", {
       pageTitle: "Admin",
-      isAuth: true,
+      isAuth: req.session.user_id,
       voucher,
     });
   });
@@ -201,7 +202,7 @@ const adminStaffPage = (req, res, next) => {
     console.log(staffs);
     res.render("admin/adminStaff.ejs", {
       pageTitle: "Admin",
-      isAuth: true,
+      isAuth: req.session.user_id,
       staffs,
     });
   });
