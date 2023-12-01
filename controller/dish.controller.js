@@ -5,14 +5,14 @@ const dishPage = (req, res) => {
   const q = "SELECT Maloaimon, Ten, Loaimon FROM loaimon";
 
   db.query(q, (err, dishes) => {
-    if (err){
+    if (err) {
       throw err;
     }
     const drinkDishes = dishes.filter(dish => dish.Loaimon === 'Nuoc uong');
     const anotherDishes = dishes.filter(dish => dish.Loaimon === 'Do an');
 
     res.render("dish.ejs", {
-      pageTitle : 'Dish',
+      pageTitle: 'Dish',
       isAuth: req.session.user_id,
       drinkDishes,
       anotherDishes
@@ -31,25 +31,37 @@ const addToCart = (req, res) => {
     return { dish, sizes };
   });
 
-  const cart = {...result, nameCustomer, addressCustomer};
+  const cart = { ...result, nameCustomer, addressCustomer };
 
   const q = "INSERT INTO customers (name, address) VALUES (?)";
-  const q1 = ""
+  const q1 = "";
 
   db.query()
 
   res.send('Add success');
 }
 
-const getAddDish = (req, res) => {
-  res.render('crud/addDish.ejs', {
+// Render the page add the final product which'll bes sold to customer
+const getAddSubDish = (req, res) => {
+  res.render('crud/addSubDish.ejs', {
     pageTitle: 'Add dish'
   })
 }
 
-const addDish = (req, res) => {
-  const { foodType, size, price } = req.body;
+// Render the page to add a prototype of an item
+const getAddPrototype = (req, res) => {
+  res.render('crud/addBaseDish.ejs', {
+    pageTitle: 'Add dish'
+  })
+}
 
+const addPrototype = (req, res) => {
+  res.send(ok);
+}
+
+const addSubDish = (req, res) => {
+  const { foodType, size, price } = req.body;
+  /*
   const q1 = "SELECT count(*) as count FROM loaimon";
 
   db.query(q1, (err, result) => {
@@ -78,6 +90,7 @@ const addDish = (req, res) => {
       res.redirect('/admin');
     });
   });
+  */
 };
 
 const getUpdateDish = (req, res) => {
@@ -85,12 +98,12 @@ const getUpdateDish = (req, res) => {
   const id = req.params.id;
   let dish;
 
-  
+
 
   const q = "SELECT * FROM mon"
 
   res.render('crud/addDish', {
-    
+
   })
 }
 
@@ -106,8 +119,10 @@ const deleteDish = (req, res) => {
 module.exports = {
   dishPage,
   addToCart,
-  getAddDish,
-  addDish,
+  getAddSubDish,
+  getAddPrototype,
+  addPrototype,
+  addSubDish,
   getUpdateDish,
   updateDish,
   deleteDish
