@@ -38,12 +38,12 @@ app.use("/admin", adminRouter);
 app.use("/cart", cartRouter);
 
 // Error handlers
-app.use((err, req, res, next) => {
-  res.status(500).render('500.ejs', {
-    pageTitle : 'Error !',
-    message: err.message
-  })
-})
+// app.use((err, req, res, next) => {
+//   res.status(500).render('500.ejs', {
+//     pageTitle : 'Error !',
+//     message: err.message
+//   })
+// })
 
 // db.connect();
 
