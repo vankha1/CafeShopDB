@@ -8,27 +8,31 @@ const getSignup = (req, res) => {
 };
 
 const signup = (req, res) => {
-  const { email, password, fullname, address, dateOfBirth, phoneNumber } =
-    req.body;
+  try {
+    const { email, password, fullname, address, dateOfBirth, phoneNumber } =
+      req.body;
 
-  if (password.length < 6) {
-    alert("Password must be at least 6 characters");
-  }
-  if (!utils.isValidDate(dateOfBirth)) alert("Please enter a valid date");
-
-  const q =
-    "INSERT INTO nhanvien (HoVaTen, email, password, DiaChi, NgaySinh, SDT, statusNV) VALUES (?)";
-
-  db.query(
-    q,
-    [[fullname, email, password, address, dateOfBirth, phoneNumber, 1]],
-    (err, result) => {
-      if (err) {
-        throw err;
-      }
-      res.redirect("/login");
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters");
     }
-  );
+    if (!utils.isValidDate(dateOfBirth)) alert("Please enter a valid date");
+
+    const q =
+      "INSERT INTO nhanvien (HoVaTen, email, password, DiaChi, NgaySinh, SDT, statusNV) VALUES (?)";
+
+    db.query(
+      q,
+      [[fullname, email, password, address, dateOfBirth, phoneNumber, 1]],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        res.redirect("/login");
+      }
+    );
+  } catch (err) {
+    res.status(500).send('Error: ' + err.message);
+  }
 };
 
 const getLogin = (req, res) => {
@@ -50,7 +54,6 @@ const login = (req, res) => {
     const query = "SELECT MaNV, email, mk FROM nhanvien where email = ?";
 
     db.query(query, [email], (err, user) => {
-
       // if (!user || user.length === 0){
       //   res.send("Please sign up");
       //   return
@@ -60,6 +63,7 @@ const login = (req, res) => {
         for (let i = 0; i < user.length; i++) {
           if (user[i].mk === password) {
             req.session.user_id = user[i].MaNV;
+            req.session.save();
             res.redirect("/");
           }
         }
@@ -78,18 +82,22 @@ const logout = (req, res) => {
 };
 
 const homePage = (req, res) => {
-  const q = "SELECT * FROM mon";
-
-  db.query(q, (err, dishTypes) => {
-    if (err) {
-      next(err);
-    }
-    res.render("homepage.ejs", {
-      isAuth: req.session.user_id,
-      pageTitle: "Cafe Shop",
-      dishTypes,
+  try {
+    const q = "SELECT * FROM mon";
+  
+    db.query(q, (err, dishTypes) => {
+      if (err) {
+        throw err;
+      }
+      res.render("homepage.ejs", {
+        isAuth: req.session.user_id,
+        pageTitle: "Cafe Shop",
+        dishTypes,
+      });
     });
-  });
+  } catch (err) {
+    res.status(500).send('Error: ' + err.message);
+  }
 };
 
 const profile = (req, res) => {
@@ -100,39 +108,47 @@ const profile = (req, res) => {
 };
 
 const updateProfile = (req, res) => {
-  const id = req.params.id;
-  const {
-    email,
-    name,
-    password,
-    address,
-    phoneNumber,
-    dateOfBirth,
-    supervisorID,
-    salary,
-  } = req.body;
-
-  const q = "CALL SuaThongTinNhanVien(?)";
-
-  db.query(q, [
-    [
-      id,
-      name,
+  try {
+    const id = req.params.id;
+    const {
       email,
+      name,
       password,
       address,
-      dateOfBirth,
       phoneNumber,
+      dateOfBirth,
       supervisorID,
       salary,
-    ],
-  ], (err, result) => {
-    if (err){
-      throw err
-    }
-    console.log(result);
-    res.redirect("/");
-  });
+    } = req.body;
+  
+    const q = "CALL SuaThongTinNhanVien(?)";
+  
+    db.query(
+      q,
+      [
+        [
+          id,
+          name,
+          email,
+          password,
+          address,
+          dateOfBirth,
+          phoneNumber,
+          supervisorID,
+          salary,
+        ],
+      ],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        console.log(result);
+        res.redirect("/");
+      }
+    );
+  } catch (err) {
+    res.status(500).send('Error: ' + err.message);
+  }
 };
 
 module.exports = {

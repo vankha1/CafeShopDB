@@ -10,21 +10,14 @@
             <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
             <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
         </div>
-
-        <div>
-            <button class=" border-2 py-2 px-4 rounded-full bg-purple-800 text-white text-center text-sm mr-5 font-medium">Them mon</button>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
-        </div>
-                
+        <a href="/signup" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
         <hr class="my-5 border border-black">
-
         <div>
             <h3 class="text-black text-2xl not-italic font-bold mb-5"></h3>
             <% if (staffs.length > 0){ %>
             <table class="w-full">
                 <thead>
-                    <th class="w-[5%]"></th>
+                    <!-- <th class="w-[5%]"></th> -->
                     <th class="w-[5%]">STT</th>
                     <th class="w-[10%]">Tên</th>
                     <th class="w-[10%]">Email</th>
@@ -35,16 +28,13 @@
                 <tbody>
                     <% staffs.forEach(staff => { if (staff.statusNV) { %>
                     <tr>
-                        <th><input type="checkbox"></th>
+                        <!-- <th><input type="checkbox"></th> -->
                         <th><%= staff.MaNV %></th>
                         <th><%= staff.HoVaTen %></th>
                         <th><%= staff.email %></th>
                         <th><%= staff.DiaChi %></th>
                         <th><%= staff.SDT %></th>
-                        <th class="flex">
-                            
-                            <a href="/signup" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
-
+                        <th>
                             <form action="/admin/staff/delete/<%= staff.MaNV %>" method="post">
                                 <input type="hidden" name="name" value="value" /> 
                                 

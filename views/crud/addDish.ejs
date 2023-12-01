@@ -12,21 +12,33 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="mt-5 mb-5 text-center text-primary"><b>Add new dish</b></h1>
-            <form action="/dish/admin/add" method="post">
+            <h1 class="mt-5 mb-5 text-center text-primary"><b><%= pageTitle  %></b></h1>
+            <form action="/dish/admin/<%= nameBtn === 'Them' ? 'add' : 'update'  %>" method="post">
                 <div class="form-group col-md-4 mb-4">
                     <label for="foodType">Loai mon</label>
-                    <input type="text" class="form-control" name="foodType" id="foodType" placeholder="1-15">
+                    <% if (nameBtn === 'Them'){ %>
+                        <input type="text" class="form-control" name="foodType" id="foodType">
+                    <% } else { %>
+                    <input type="text" class="form-control" name="foodType" id="foodType" value="<%= dish.Maloaimon %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>">
+                    <% } %>
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="size">Kich co</label>
-                    <input type="text" class="form-control" name="size" id="size" placeholder="S-M-L">
+                    <% if (nameBtn === 'Them'){ %>
+                        <input type="text" class="form-control" name="size" id="size">
+                    <% } else { %>
+                        <input type="text" class="form-control" name="size" id="size" value="<%= dish.Kichco %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>">
+                    <% } %>
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="price">Don gia</label>
-                    <input type="text" class="form-control" name="price" id="price" placeholder="10000">
+                    <% if (nameBtn === 'Them'){ %>
+                        <input type="text" class="form-control" name="price" id="price">
+                    <% } else { %>
+                        <input type="text" class="form-control" name="price" id="price" value="<%= dish.Dongia %>" autocomplete="off">
+                    <% } %>
                 </div>
-                <button type="submit" class="btn btn-primary">Them</button>
+                <button type="submit" class="btn btn-primary"><%= nameBtn %></button>
             </form>
         </div>
     </body>
