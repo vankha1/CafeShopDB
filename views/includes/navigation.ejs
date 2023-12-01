@@ -35,7 +35,11 @@
               </li>
             <% } else { %>
             <li>
-                <a class="hover:underline transition" href="/admin">Quản lý</a>
+                <% if(pageTitle == 'Admin') {%>
+                    <a class="hover:underline font-bold transition" href="/admin">Quản lý</a>
+                <% } else { %> 
+                    <a class="hover:underline transition" href="/admin">Quản lý</a>
+                <% } %>
             </li>
             <% } %>
         </ul>
