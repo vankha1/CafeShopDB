@@ -204,6 +204,46 @@ const adminStaffPage = (req, res, next) => {
       pageTitle: "Admin",
       isAuth: req.session.user_id,
       staffs,
+      result: 'Nothing'
+    });
+  });
+};
+
+const findInvoiceAndStaff = (req, res) => {
+  const maxSalary = req.body.maxSalary;
+
+  if (req.session.user_id !== "admin") {
+    res.send("You are not an administrator");
+    return;
+  }
+
+  const q = "SELECT * FROM nhanvien";
+
+  db.query(q, (err, staffs) => {
+    if (err) {
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+
+    const q1 = "CALL InThongTinNhanVienVaHoaDon(?)";
+
+    db.query(q1, [parseInt(maxSalary)], (err, result) => {
+      if (err) {
+        res.status(500).render("500.ejs", {
+          pageTitle: "Error !",
+          message: err.message,
+        });
+        return;
+      }
+      res.render("admin/adminStaff.ejs", {
+        pageTitle: "Admin",
+        isAuth: req.session.user_id,
+        staffs,
+        result: result[0]
+      });
     });
   });
 };
@@ -233,5 +273,6 @@ module.exports = {
   adminCartView,
   adminVoucherPage,
   adminStaffPage,
+  findInvoiceAndStaff,
   deleteStaff,
 };

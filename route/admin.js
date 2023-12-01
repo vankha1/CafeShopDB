@@ -17,5 +17,6 @@ router.get('/voucher', adminController.adminVoucherPage);
 
 router.get('/staff', adminController.adminStaffPage);
 router.post('/staff/delete/:id', adminController.deleteStaff);
+router.post('/staff', adminController.findInvoiceAndStaff)
 
 module.exports = router;
