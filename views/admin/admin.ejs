@@ -13,9 +13,6 @@
 
         <div>
             <a href="/dish/admin/add" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them mon</a>
-            
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
         </div>
 
         <hr class="my-5 border border-black">
@@ -27,7 +24,7 @@
                     <span>Khong con thuc uong</span>
                 <% } else { %>
                         <thead>
-                            <th class="w-[5%]"></th>
+                            <!-- <th class="w-[5%]"></th> -->
                             <th class="w-[10%] text-violet-500">Tên</th>
                             <th class="w-[10%] text-violet-500">Kich co</th>
                             <th class="w-[10%] text-violet-500">Giá</th>
@@ -36,13 +33,18 @@
                         <tbody>
                         <% drinkDishes.forEach(dish => { %>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <!-- <th><input type="checkbox"></th> -->
                                 <th>
                                     <%= dish.Ten  %>
                                 </th>
                                 <th><%= dish.Kichco  %></th>
                                 <th><%= dish.Dongia  %></th>
-                                <th><a href="/dish/admin/add" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a></th>
+                                <th class="flex justify-center items-center">
+                                    <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a>
+                                    <form action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco %>" method="post">
+                                        <button type="submit" class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa mon</button>
+                                    </form>
+                                </th>
                             </tr>
                             <% }) %>
                         </tbody>
@@ -59,7 +61,7 @@
                     <span>Khong con do an nhe</span>
                 <% } else { %>
                         <thead>
-                            <th class="w-[5%]"></th>
+                            <!-- <th class="w-[5%]"></th> -->
                             <th class="w-[10%] text-violet-500">Tên</th>
                             <th class="w-[10%] text-violet-500">Kich co</th>
                             <th class="w-[10%] text-violet-500">Giá</th>
@@ -68,13 +70,18 @@
                         <tbody>
                         <% anotherDishes.forEach(dish => { %>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <!-- <th><input type="checkbox"></th> -->
                                 <th>
                                     <%= dish.Ten  %>
                                 </th>
                                 <th><%= dish.Kichco  %></th>
                                 <th><%= dish.Dongia  %></th>
-                                <th><a href="/dish/admin/add/<%= dish.Maloaimon %><%= dish.Kichco %>" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a></th>
+                                <th class="flex justify-center items-center">
+                                    <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a>
+                                    <form action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco %>" method="post">
+                                        <button type="submit" class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa mon</button>
+                                    </form>
+                                </th>
                             </tr>
                             <% }) %>
                         </tbody>
