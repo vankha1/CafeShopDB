@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-const dishPage = (req, res) => {
+const dishPage = (req, res, next) => {
   try {
     const q =
       "SELECT Maloaimon, Ten, Loaimon, Kichco, dongia FROM (loaimon natural join mon)";
@@ -51,7 +51,7 @@ const dishPage = (req, res) => {
   }
 };
 
-const addToCart = (req, res) => {
+const addToCart = (req, res, next) => {
   try {
     const nameDishes = req.body.nameDish;
     const nameCustomer = req.body.nameCustomer;
@@ -85,6 +85,10 @@ const addToCart = (req, res) => {
         const Kichco = key.replace(/[0-9]/g, '');
         const Giatheongay = orderedDishes[key][2];
         const Soluong = orderedDishes[key][1];
+
+        if (!MaLoaiMon || !Kichco || !Giatheongay || !Soluong) {
+          throw err;
+        }
   
         const q1 = "INSERT INTO thuocvemon (Mamon, Madonhang, Kichco, Giatheongay, Soluong) VALUES (?)";
         db.query(q1, [[MaLoaiMon, idDonHang, Kichco, Giatheongay, Soluong]], (err, result) => {
@@ -109,14 +113,14 @@ const addToCart = (req, res) => {
   }
 };
 
-const getAddDish = (req, res) => {
+const getAddDish = (req, res, next) => {
   res.render("crud/addDish.ejs", {
     pageTitle: "Add dish",
     nameBtn: 'Them'
   });
 };
 
-const addDish = (req, res) => {
+const addDish = (req, res, next) => {
   try {
     const { foodType, size, price } = req.body;
 
@@ -158,7 +162,7 @@ const addDish = (req, res) => {
   }
 };
 
-const getUpdateDish = (req, res) => {
+const getUpdateDish = (req, res, next) => {
   try {
     const id = req.params.id;
   
@@ -185,7 +189,7 @@ const getUpdateDish = (req, res) => {
 
 };
 
-const updateDish = (req, res) => {
+const updateDish = (req, res, next) => {
   try {
     const { foodType, size, price } = req.body;
 
@@ -210,7 +214,7 @@ const updateDish = (req, res) => {
   }
 };
 
-const deleteDish = (req, res) => {
+const deleteDish = (req, res, next) => {
   try {
     const id = req.params.id;
   
