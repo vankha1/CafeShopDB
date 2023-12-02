@@ -40,10 +40,19 @@ const addTableToCart = (req, res, next) => {
     return;
   }
 
-  const q =
-    "INSERT INTO  DonHang () VALUES (); INSERT INTO customers (name, address) VALUES (?)";
+  const isoDate = new Date();
+  const mySQLDateString = isoDate
+    .toJSON()
+    .slice(0, 19)
+    .replace("T", " ")
+    .split(" ");
 
-  db.query(q, [[nameCustomer, addressCustomer]], (err, result) => {
+  const orderDate = mySQLDateString[0];
+  const orderTime = mySQLDateString[1];
+
+  const q = "SELECT * FROM customers WHERE name = ? AND address = ?";
+
+  db.query(q, [[nameCustomer], [addressCustomer]], (err, customer) => {
     if (err) {
       res.status(500).render("500.ejs", {
         pageTitle: "Error !",
@@ -52,39 +61,56 @@ const addTableToCart = (req, res, next) => {
       return;
     }
 
-    console.log(result[0], result[1]);
+    console.log(customer);
 
-    const idDonHang = result[0].insertId;
-    const customerId = result[1].insertId;
+    if (customer.length > 0) {
+      const q1 = "INSERT INTO  DonHang () VALUES ()";
+      db.query(q1, (err, result) => {
+        if (err) {
+          res.status(500).render("500.ejs", {
+            pageTitle: "Error !",
+            message: err.message,
+          });
+          return;
+        }
+        const idDonHang = result.insertId;
+        const customerId = customer[0].ID;
+        const q2 =
+          "INSERT INTO dondattruoc (MaDonHang, MaBan) VALUES (?); INSERT INTO bookinginfo (fk_tableID, fk_customerID, orderDate, orderTime, startDate, startTime, endTime) VALUES (?)";
 
-    const isoDate = new Date();
-    const mySQLDateString = isoDate
-      .toJSON()
-      .slice(0, 19)
-      .replace("T", " ")
-      .split(" ");
+        db.query(
+          q2,
+          [
+            [idDonHang, tableId],
+            [
+              tableId,
+              customerId,
+              orderDate,
+              orderTime,
+              startDate,
+              startTime,
+              endTime,
+            ],
+          ],
+          (err, result) => {
+            if (err) {
+              res.status(500).render("500.ejs", {
+                pageTitle: "Error !",
+                message: err.message,
+              });
+              return;
+            }
 
-    const orderDate = mySQLDateString[0];
-    const orderTime = mySQLDateString[1];
+            console.log(result[0], result[1]);
+            res.send('success');
+          }
+        );
+      });
+    } else if (customer.length === 0) {
+      const q1 =
+        "INSERT INTO  DonHang () VALUES (); INSERT INTO customers (name, address) VALUES (?)";
 
-    const q1 =
-      "INSERT INTO dondattruoc (MaDonHang, MaBan) VALUES (?); INSERT INTO bookinginfo (fk_tableID, fk_customerID, orderDate, orderTime, startDate, startTime, endTime) VALUES (?)";
-
-    db.query(
-      q1,
-      [
-        [idDonHang, tableId],
-        [
-          tableId,
-          customerId,
-          orderDate,
-          orderTime,
-          startDate,
-          startTime,
-          endTime,
-        ],
-      ],
-      (err, result) => {
+      db.query(q1, [[nameCustomer, addressCustomer]], (err, result) => {
         if (err) {
           res.status(500).render("500.ejs", {
             pageTitle: "Error !",
@@ -95,9 +121,41 @@ const addTableToCart = (req, res, next) => {
 
         console.log(result[0], result[1]);
 
-        res.send("Add success");
-      }
-    );
+        const idDonHang = result[0].insertId;
+        const customerId = result[1].insertId;
+
+        const q2 =
+          "INSERT INTO dondattruoc (MaDonHang, MaBan) VALUES (?); INSERT INTO bookinginfo (fk_tableID, fk_customerID, orderDate, orderTime, startDate, startTime, endTime) VALUES (?)";
+
+        db.query(
+          q2,
+          [
+            [idDonHang, tableId],
+            [
+              tableId,
+              customerId,
+              orderDate,
+              orderTime,
+              startDate,
+              startTime,
+              endTime,
+            ],
+          ],
+          (err, result) => {
+            if (err) {
+              res.status(500).render("500.ejs", {
+                pageTitle: "Error !",
+                message: err.message,
+              });
+              return;
+            }
+
+            console.log(result[0], result[1]);
+            res.send('success');
+          }
+        );
+      });
+    }
   });
 };
 
