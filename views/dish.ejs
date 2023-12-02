@@ -1,123 +1,149 @@
 <%- include('includes/header.ejs') %>
-</head>
-<body>
-    <%- include('includes/navigation.ejs')  %>    
-    <main class="px-24 py-10">
-        <form action="/dish/add-to-cart" method="post">
-            <h2 class="text-black text-2xl font-bold mb-5">Thuc uong</h2>
-            <div class="flex gap-20">
-                <% if (drinkDishes.length > 0){ %>
-                    <% drinkDishes.forEach(dish => { console.log(dish) %>
-                        <div class="flex w-56 flex-col align-center gap-3">
-                            <div class="image">
-                                <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
-                            </div>
-                            <div>
-                                <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten.toUpperCase()  %></label>
-                                <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
-                            </div>
-                            
-                            <div class="flex flex-wrap gap-6">
-                                <% for(let i = 0; i < dish.Kichco.length; i++) { if (dish.current_status[i]) { %>
-                                    <div class="">
-                                        <input class="mr-1" type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;<strong><%= dish.Kichco[i] %></strong>
-                                        <input class="ml-1 pl-1 w-[40px] border-2 border-black" type="number" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>" value="0">
-                                        <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+    </head>
+
+    <body>
+        <%- include('includes/navigation.ejs') %>
+            <main class="px-24 py-10">
+                <form action="/dish/add-to-cart" method="post">
+                    <h2 class="text-black text-2xl font-bold mb-5">Thức uống</h2>
+                    <div class="flex gap-20">
+                        <% if (drinkDishes.length> 0){ %>
+                            <% drinkDishes.forEach(dish=> { console.log(dish) %>
+                                <div class="flex w-56 flex-col align-center gap-3">
+                                    <div class="image">
+                                        <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png"
+                                            alt="">
                                     </div>
-                                <% }} %>
-                                <% if (dish.Kichco.length === 0 || !dish.current_status.some(status => status === 1)) { %>
-                                    <p>KHONG CO MON</p>    
-                                <% } %>
-                            </div>
-                        </div>
-                        <% }) %>
-                    <% } else { %>
-                        <h3>KHONG CON DO AN NHE</h3>
-                <% } %>
-            </div>
-
-            <hr class="my-5 border border-black">
-
-            <h2 class="text-black text-2xl font-bold mb-5">Mon an nhe</h2>
-            <div class="flex gap-20">
-                <% if (anotherDishes.length > 0){ %>
-                    <% anotherDishes.forEach(dish => { console.log(dish) %>
-                        <div class="flex w-56 flex-col align-center gap-3">
-                            <div class="image">
-                                <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
-                            </div>
-                            <div>
-                                <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten.toUpperCase()  %></label>
-                                <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
-                            </div>
-                            
-                            <div class="flex flex-wrap gap-6">
-                                <% for(let i = 0; i < dish.Kichco.length; i++) { if (dish.current_status[i]) { %>
-                                    <div class="">
-                                        <input class="mr-1" type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;<strong><%= dish.Kichco[i] %></strong>
-                                        <input class="ml-1 pl-1 w-[40px] border-2 border-black" type="number" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>" value="0">
-                                        <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                                    <div>
+                                        <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>">
+                                            <%= dish.Ten.toUpperCase() %>
+                                        </label>
+                                        <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish"
+                                            value="<%= dish.Ten  %>">
                                     </div>
-                                <% }} %>
-                                <% if (dish.Kichco.length === 0 || !dish.current_status.some(status => status === 1)) { %>
-                                    <p>KHONG CO MON</p>    
-                                <% } %>
-                            </div>
+
+                                    <div class="flex flex-wrap gap-6">
+                                        <% for(let i=0; i < dish.Kichco.length; i++) { if (dish.current_status[i]) { %>
+                                            <div class="">
+                                                <input class="mr-1" type="checkbox" id="size"
+                                                    name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;<strong>
+                                                    <%= dish.Kichco[i] %>
+                                                </strong>
+                                                <input class="ml-1 pl-1 w-[40px] border-2 border-black" type="number"
+                                                    id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>"
+                                                    value="0">
+                                                <input type="hidden" id="price"
+                                                    name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>"
+                                                    value="<%= dish.dongia[i] %>">
+                                            </div>
+                                            <% }} %>
+                                                <% if (dish.Kichco.length===0 || !dish.current_status.some(status=>
+                                                    status === 1)) { %>
+                                                    <p>Không có món</p>
+                                                    <% } %>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <h3>Không còn đồ uống</h3>
+                                        <% } %>
+                    </div>
+
+                    <hr class="my-5 border border-black">
+
+                    <h2 class="text-black text-2xl font-bold mb-5">Món ăn nhẹ</h2>
+                    <div class="flex gap-20">
+                        <% if (anotherDishes.length> 0){ %>
+                            <% anotherDishes.forEach(dish=> { console.log(dish) %>
+                                <div class="flex w-56 flex-col align-center gap-3">
+                                    <div class="image">
+                                        <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png"
+                                            alt="">
+                                    </div>
+                                    <div>
+                                        <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>">
+                                            <%= dish.Ten.toUpperCase() %>
+                                        </label>
+                                        <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish"
+                                            value="<%= dish.Ten  %>">
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-6">
+                                        <% for(let i=0; i < dish.Kichco.length; i++) { if (dish.current_status[i]) { %>
+                                            <div class="">
+                                                <input class="mr-1" type="checkbox" id="size"
+                                                    name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;<strong>
+                                                    <%= dish.Kichco[i] %>
+                                                </strong>
+                                                <input class="ml-1 pl-1 w-[40px] border-2 border-black" type="number"
+                                                    id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>"
+                                                    value="0">
+                                                <input type="hidden" id="price"
+                                                    name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>"
+                                                    value="<%= dish.dongia[i] %>">
+                                            </div>
+                                            <% }} %>
+                                                <% if (dish.Kichco.length===0 || !dish.current_status.some(status=>
+                                                    status === 1)) { %>
+                                                    <p>Không có món</p>
+                                                    <% } %>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <h3>Không còn đồ ăn nhẹ</h3>
+                                        <% } %>
+                    </div>
+                    <div class="customer mt-20">
+                        <h2 class="mb-3">Thông tin khách hàng</h2>
+                        <div class="mb-3">
+                            <label for="nameCustomer">Tên</label><br>
+                            <input class="p-1 border w-[500px]" type="text" id="nameCustomer" name="nameCustomer">
                         </div>
-                        <% }) %>
-                    <% } else { %>
-                        <h3>KHONG CON DO AN NHE</h3>
-                <% } %>
-            </div>
-            <div class="customer mt-20">
-                <h2 class="mb-3">THONG TIN KHACH HANG</h2>
-                <div class="mb-3">
-                    <label for="nameCustomer">Ten</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="nameCustomer" name="nameCustomer">
-                </div>
-                <div class="mb-3">
-                    <label for="addressCustomer">Dia chi</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="addressCustomer" name="addressCustomer">
-                </div>
-                <div class="mb-3">
-                    <label for="cardNumber">So the</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="cardNumber" name="cardNumber">
-                </div>
-                <div class="mb-3">
-                    <label for="voucherId">Ma voucher</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="voucherId" name="voucherId">
-                </div>
-                <div class="mb-3">
-                    <label for="voucherSerial">So thu tu voucher</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="voucherSerial" name="voucherSerial">
-                </div>
-            </div>
-            <button type="submit" class="py-2 px-10 rounded-lg bg-purple-800 text-white text-center text-sm not-italic font-medium leading-5 float-right">Dat</button>
-        </form>
-        
-    </main>
-    <script>
-        const inputCheckbox = document.querySelectorAll('input[type="checkbox"]');
+                        <div class="mb-3">
+                            <label for="addressCustomer">Địa chỉ</label><br>
+                            <input class="p-1 border w-[500px]" type="text" id="addressCustomer" name="addressCustomer">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber">Mã số thẻ tự phục vụ</label><br>
+                            <input class="p-1 border w-[500px]" type="text" id="cardNumber" name="cardNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="voucherId">Mã voucher</label><br>
+                            <input class="p-1 border w-[500px]" type="text" id="voucherId" name="voucherId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="voucherSerial">Số thứ tự voucher</label><br>
+                            <input class="p-1 border w-[500px]" type="text" id="voucherSerial" name="voucherSerial">
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="py-2 px-10 rounded-lg bg-purple-800 text-white text-center text-sm not-italic font-medium leading-5 float-right">Dat</button>
+                </form>
 
-        const inputNumberOfDish = document.querySelectorAll('input[type="number"]');
+            </main>
+            <script>
+                const inputCheckbox = document.querySelectorAll('input[type="checkbox"]');
 
-        inputNumberOfDish.forEach(input => {
-            let num = Number(input.value);
-            if (isNaN(num) || num < 0){
-                input.value = 0;
-            }
-        })
+                const inputNumberOfDish = document.querySelectorAll('input[type="number"]');
 
-        for (let i = 0; i < inputCheckbox.length; i++) {
-            inputNumberOfDish[i].onchange = () => {
-                if (!inputCheckbox[i].checked){
-                    inputCheckbox[i].checked = true
+                inputNumberOfDish.forEach(input => {
+                    let num = Number(input.value);
+                    if (isNaN(num) || num < 0) {
+                        input.value = 0;
+                    }
+                })
+
+                for (let i = 0; i < inputCheckbox.length; i++) {
+                    inputNumberOfDish[i].onchange = () => {
+                        if (!inputCheckbox[i].checked) {
+                            inputCheckbox[i].checked = true
+                        }
+                        if (inputNumberOfDish[i].value == 0) {
+                            inputCheckbox[i].checked = false;
+                        }
+                    }
                 }
-                if (inputNumberOfDish[i].value == 0){
-                    inputCheckbox[i].checked = false;
-                }
-            }
-        }
-    
-    </script>
-<%- include('includes/end.ejs') %>
+
+            </script>
+            <%- include('includes/end.ejs') %>

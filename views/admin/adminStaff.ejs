@@ -1,88 +1,114 @@
 <%- include('../includes/header.ejs') %>
-</head>
-<body>
-    <%- include('../includes/navigation.ejs')  %>    
-    <main class="px-24 py-10">
-        <div class="flex gap-10">
-            <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
-            <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
-            <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
-            <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
-            <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
-        </div>
-        <a href="/signup" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
-        <hr class="my-5 border border-black">
-        <div>
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Nhan vien</h3>
-            <% if (staffs.length > 0){ %>
-            <table class="w-full">
-                <thead>
-                    <!-- <th class="w-[5%]"></th> -->
-                    <th class="w-[5%]">STT</th>
-                    <th class="w-[10%]">Ho va Ten</th>
-                    <th class="w-[10%]">Email</th>
-                    <th class="w-[10%]">Dia chi</th>
-                    <th class="w-[10%]">SDT</th>
-                    <th class="w-[10%]">Khac</th>
-                </thead>
-                <tbody>
-                    <% staffs.forEach(staff => { if (staff.statusNV) { %>
-                    <tr>
-                        <!-- <th><input type="checkbox"></th> -->
-                        <th><%= staff.MaNV %></th>
-                        <th><%= staff.HoVaTen %></th>
-                        <th><%= staff.email %></th>
-                        <th><%= staff.DiaChi %></th>
-                        <th><%= staff.SDT %></th>
-                        <th class="flex justify-center items-center">
-                            <a href="/admin/staff/update/<%= staff.MaNV %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
-                            <form action="/admin/staff/delete/<%= staff.MaNV %>" method="post">
-                                <input type="hidden" name="name" value="value" /> 
-                                
-                                <button type="submit" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa</button>
-                            </form>
-                        </th>
-                    </tr>
-                    <% }}) %>
-                </tbody>
-            </table>
-            <% } else { %>
-                <h3>KHONG CO NHAN VIEN</h3>
-            <% } %>
-        </div>
-        <hr class="my-5 border border-black">
-        <form action="/admin/staff" method="post">
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Nhan vien va hoa don</h3>
-            <label for="maxSalary">NHAP GIA TRI LUONG TOI DA CAN TIM KIEM: </label>
-            <input class="ml-10 border-2 border-zinc-950 p-2 " type="number" id="maxSalary" name="maxSalary" placeholder="> 20000">
-            <button type="submit" class="ml-10 py-2 rounded bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Tim</button>
+    </head>
 
-            <a href="/admin/staff" class="ml-5 py-2 px-3 border-t border-b border-violet-800 rounded bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Reset</a>
-        </form>
-        <% if (result === 'Nothing'){ %>
-        <% } else { %>
-            <table>
-                <% if (result.length > 0) { %>
-                <thead>
-                    <th class="w-[5%]">STT</th>
-                    <th class="w-[15%]">Ho va ten</th>
-                    <th class="w-[15%]">Luong</th>
-                    <th class="w-[15%]">So luong hoa don</th>
-                </thead>
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main class="px-24 py-10">
+                <div class="flex gap-10">
+                    <a href="/admin" class="text-black text-2xl font-bold mb-5">Món</a>
+                    <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Bàn</a>
+                    <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Đơn hàng</a>
+                    <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
+                    <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhân viên</a>
+                </div>
+                <a href="/signup"
+                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
+                <hr class="my-5 border border-black">
+                <div>
+                    <h3 class="text-black text-2xl not-italic font-bold mb-5">Nhân viên</h3>
+                    <% if (staffs.length> 0){ %>
+                        <table class="w-full">
+                            <thead>
+                                <!-- <th class="w-[5%]"></th> -->
+                                <th class="w-[5%]">STT</th>
+                                <th class="w-[10%]">Họ Tên</th>
+                                <th class="w-[10%]">Email</th>
+                                <th class="w-[10%]">Địa chỉ</th>
+                                <th class="w-[10%]">SĐT</th>
+                                <th class="w-[10%]">Khác</th>
+                            </thead>
+                            <tbody>
+                                <% staffs.forEach(staff=> { if (staff.statusNV) { %>
+                                    <tr>
+                                        <!-- <th><input type="checkbox"></th> -->
+                                        <th>
+                                            <%= staff.MaNV %>
+                                        </th>
+                                        <th>
+                                            <%= staff.HoVaTen %>
+                                        </th>
+                                        <th>
+                                            <%= staff.email %>
+                                        </th>
+                                        <th>
+                                            <%= staff.DiaChi %>
+                                        </th>
+                                        <th>
+                                            <%= staff.SDT %>
+                                        </th>
+                                        <th class="flex justify-center items-center">
+                                            <a href="/admin/staff/update/<%= staff.MaNV %>"
+                                                class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
+                                            <form action="/admin/staff/delete/<%= staff.MaNV %>" method="post">
+                                                <input type="hidden" name="name" value="value" />
 
-                <% result.forEach(staff => { %>
-                <tbody>
-                        <tr>
-                            <th><%= staff.MaNV %></th>
-                            <th><%= staff.HoVaTen %></th>
-                            <th><%= staff.Luong %></th>
-                            <th><%= staff.SoLuongHoaDon %></th>
-                        </tr>
-                </tbody>
-                <% })} else { %>
-                    <h2 class="mt-5 font-bold">KHONG CO NHAN VIEN NAO XUAT HOA DON CO MUC LUONG NHO HON MUC LUONG CAN TIM</h2> 
-                <% } %>
-            </table>
-        <% } %>
-    </main>
-<%- include('../includes/end.ejs') %>
+                                                <button type="submit"
+                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa</button>
+                                            </form>
+                                        </th>
+                                    </tr>
+                                    <% }}) %>
+                            </tbody>
+                        </table>
+                        <% } else { %>
+                            <h3>Không có nhân viên</h3>
+                            <% } %>
+                </div>
+                <hr class="my-5 border border-black">
+                <form action="/admin/staff" method="post">
+                    <h3 class="text-black text-2xl not-italic font-bold mb-5">Nhân viên và Hóa đơn</h3>
+                    <label for="maxSalary">NHẬP MỨC LƯƠNG TỐI ĐA CẦN TÌM KIẾM: </label>
+                    <input class="ml-10 border-2 border-zinc-950 p-2 " type="number" id="maxSalary" name="maxSalary"
+                        placeholder="> 20000">
+                    <button type="submit"
+                        class="ml-10 py-2 rounded bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Tìm</button>
+
+                    <a href="/admin/staff"
+                        class="ml-5 py-2 px-3 border-t border-b border-violet-800 rounded bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Reset</a>
+                </form>
+                <% if (result==='Nothing' ){ %>
+                    <% } else { %>
+                        <table>
+                            <% if (result.length> 0) { %>
+                                <thead>
+                                    <th class="w-[5%]">STT</th>
+                                    <th class="w-[15%]">Họ Tên</th>
+                                    <th class="w-[15%]">Lương</th>
+                                    <th class="w-[15%]">Số lượng hóa đơn</th>
+                                </thead>
+
+                                <% result.forEach(staff=> { %>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                <%= staff.MaNV %>
+                                            </th>
+                                            <th>
+                                                <%= staff.HoVaTen %>
+                                            </th>
+                                            <th>
+                                                <%= staff.Luong %>
+                                            </th>
+                                            <th>
+                                                <%= staff.SoLuongHoaDon %>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                    <% })} else { %>
+                                        <h2 class="mt-5 font-bold">Không có hóa đơn nào được xuất ra từ nhân viên có mức
+                                            lương nhỏ hơn mức lương cần tìm</h2>
+                                        <% } %>
+                        </table>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
