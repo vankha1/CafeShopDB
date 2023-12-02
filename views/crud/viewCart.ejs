@@ -13,9 +13,9 @@
     <body>
         <div class="container">
             <h1 class="mt-5 mb-5 text-center text-primary"><b>Chi tiet don hang</b></h1>
-            <% carts.forEach(c => { console.log(idStaff) %>
+            <% carts.forEach(c => { %>
                 <div>
-                    <label class="text-black-50">Ma mon: <%= idStaff  %></label>
+                    <label class="text-black-50">Ma mon:</label>
                     <span><%= c.Mamon %></span>
                 </div>
                 <div>
@@ -41,11 +41,6 @@
 
                 <hr class="my-2 border border-black">
             <% }) %>
-
-            <div>
-                <label class="text-black-50">Tong gia cua don hang: </label>
-                <span><%= sumOfPrices %></span>
-            </div>
 
             <% if (!path.startsWith('/admin')) { %>
                 <form action="/cart/invoice/export" method="post">

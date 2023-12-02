@@ -8,7 +8,7 @@ const adminPage = (req, res, next) => {
   }
 
   const q =
-    "SELECT Maloaimon, Ten, Kichco, Dongia, Loaimon FROM (mon NATURAL JOIN loaimon)";
+    "SELECT Maloaimon, Ten, Kichco, Dongia, Loaimon, current_status FROM (mon NATURAL JOIN loaimon)";
 
   db.query(q, (err, dishes) => {
     if (err) {
@@ -18,7 +18,7 @@ const adminPage = (req, res, next) => {
       });
       return;
     }
-    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Nuoc uong");
+    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Do uong");
     const anotherDishes = dishes.filter((dish) => dish.Loaimon === "Do an");
 
     res.render("admin/admin.ejs", {
@@ -248,6 +248,43 @@ const findInvoiceAndStaff = (req, res) => {
   });
 };
 
+const getUpdateStaff = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const q = "SELECT * FROM nhanvien WHERE MaNV = ?"
+  db.query(q, [[id]], (err, staff) => {
+    if (err){
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+    res.render('crud/updateStaff.ejs', {
+      pageTitle: "Update Staff",
+      staff: staff[0]
+    })
+  })
+}
+
+const updateStaff = (req, res) => {
+  const id = req.params.id;
+  const supervisorID = parseInt(req.body.supervisorID);
+  const salary = parseInt(req.body.salary);
+
+  const q = "CALL SuaLuongVaMaGiamSatNhanVien(?)";
+  db.query(q, [[id, salary, supervisorID]], (err, result) => {
+    if (err){
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+    res.redirect("/admin/staff");
+  })  
+}
+
 const deleteStaff = (req, res, next) => {
   const id = req.params.id;
 
@@ -274,5 +311,7 @@ module.exports = {
   adminVoucherPage,
   adminStaffPage,
   findInvoiceAndStaff,
+  getUpdateStaff,
+  updateStaff,
   deleteStaff,
 };
