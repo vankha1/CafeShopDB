@@ -13,42 +13,38 @@
     <body>
         <div class="container">
             <h1 class="mt-5 mb-5 text-center text-primary"><b><%= pageTitle  %></b></h1>
-            <form action="/signup" method="post">
+            <form action="/admin/staff/update/<%= staff.MaNV %>" method="post">
                 <div class="form-row mb-4">
                     <div class="form-group col-md-4 mb-4">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                        <input autocomplete="off" value="<%= staff.email %>" readonly type="email" class="form-control" name="email" id="email" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="fullname">Ho va ten</label>
-                    <input type="text" class="form-control" name="fullname" id="fullname">
+                    <input autocomplete="off" value="<%= staff.HoVaTen %>" readonly type="text" class="form-control" name="fullname" id="fullname">
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="address">Dia chi</label>
-                    <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St">
+                    <input autocomplete="off" value="<%= staff.DiaChi %>" readonly type="text" class="form-control" name="address" id="address" placeholder="1234 Main St">
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="dateOfBirth">Ngay sinh</label>
-                    <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="2000-01-13">
+                    <input autocomplete="off" value="<%= staff.NgaySinh %>" readonly type="date" name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="2000-01-13">
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="phoneNumber">So dien thoai</label>
-                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
+                    <input autocomplete="off" value="<%= staff.SDT %>" readonly type="text" name="phoneNumber" class="form-control" id="phoneNumber">
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="supervisorID">Ma giam sat</label>
-                    <input type="text" name="supervisorID" class="form-control" id="supervisorID">
+                    <input type="number" name="supervisorID" class="form-control" id="supervisorID" value="<%= staff.MaGiamSat %>" autocomplete="off">
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="salary">Luong</label>
-                    <input type="text" name="salary" class="form-control" id="salary" placeholder="200000">
+                    <input type="number" name="salary" class="form-control" id="salary" placeholder="200000" value="<%= staff.Luong %>"  autocomplete="off">
                 </div>
-                <button type="submit" class="btn btn-primary">Them</button>
+                <button type="submit" class="btn btn-primary">Cap nhat</button>
             </form>
         </div>
     </body>

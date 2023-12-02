@@ -8,17 +8,25 @@
             <div class="flex gap-20">
                 <% if (drinkDishes.length > 0){ %>
                     <% drinkDishes.forEach(dish => { console.log(dish) %>
-                        <div class="flex w-56 flex-col justify-between align-center gap-5">
+                        <div class="flex w-56 flex-col align-center gap-3">
                             <div class="image">
                                 <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
                             </div>
-                            <label for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten  %></label>
-                            <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
-                            <div class="flex justify-between items-center self-stretch">
-                                <% for(let i = 0; i < dish.Kichco.length; i++) { %>
-                                    <input type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>"><strong><%= dish.Kichco[i] %></strong>
-                                    <input class="w-[30px] border-2 border-black" type="text" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;&nbsp;&nbsp;
-                                    <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                            <div>
+                                <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten.toUpperCase()  %></label>
+                                <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-6">
+                                <% for(let i = 0; i < dish.Kichco.length; i++) { if (dish.current_status[i]) { %>
+                                    <div class="">
+                                        <input class="mr-1" type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;<strong><%= dish.Kichco[i] %></strong>
+                                        <input class="ml-1 pl-1 w-[40px] border-2 border-black" type="number" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>" value="0">
+                                        <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                                    </div>
+                                <% }} %>
+                                <% if (dish.Kichco.length === 0 || !dish.current_status.some(status => status === 1)) { %>
+                                    <p>KHONG CO MON</p>    
                                 <% } %>
                             </div>
                         </div>
@@ -34,17 +42,25 @@
             <div class="flex gap-20">
                 <% if (anotherDishes.length > 0){ %>
                     <% anotherDishes.forEach(dish => { console.log(dish) %>
-                        <div class="flex w-56 flex-col justify-between align-center gap-5">
+                        <div class="flex w-56 flex-col align-center gap-3">
                             <div class="image">
                                 <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
                             </div>
-                            <label for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten  %></label>
-                            <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
-                            <div class="flex justify-between items-center self-stretch">
-                                <% for(let i = 0; i < dish.Kichco.length; i++) { %>
-                                    <input type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>"><strong><%= dish.Kichco[i] %></strong>
-                                    <input class="w-[30px] border-2 border-black" type="text" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;&nbsp;&nbsp;
-                                    <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                            <div>
+                                <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten.toUpperCase()  %></label>
+                                <input type="hidden" id="nameDish<%= dish.Maloaimon  %>" name="nameDish" value="<%= dish.Ten  %>">
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-6">
+                                <% for(let i = 0; i < dish.Kichco.length; i++) { if (dish.current_status[i]) { %>
+                                    <div class="">
+                                        <input class="mr-1" type="checkbox" id="size" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>">&nbsp;<strong><%= dish.Kichco[i] %></strong>
+                                        <input class="ml-1 pl-1 w-[40px] border-2 border-black" type="number" id="amount" name="<%= dish.Kichco[i] %><%= dish.Maloaimon  %>" value="0">
+                                        <input type="hidden" id="price" name="<%= dish.Kichco[i] %><%= dish.Maloaimon %>" value="<%= dish.dongia[i] %>">
+                                    </div>
+                                <% }} %>
+                                <% if (dish.Kichco.length === 0 || !dish.current_status.some(status => status === 1)) { %>
+                                    <p>KHONG CO MON</p>    
                                 <% } %>
                             </div>
                         </div>
@@ -80,4 +96,28 @@
         </form>
         
     </main>
+    <script>
+        const inputCheckbox = document.querySelectorAll('input[type="checkbox"]');
+
+        const inputNumberOfDish = document.querySelectorAll('input[type="number"]');
+
+        inputNumberOfDish.forEach(input => {
+            let num = Number(input.value);
+            if (isNaN(num) || num < 0){
+                input.value = 0;
+            }
+        })
+
+        for (let i = 0; i < inputCheckbox.length; i++) {
+            inputNumberOfDish[i].onchange = () => {
+                if (!inputCheckbox[i].checked){
+                    inputCheckbox[i].checked = true
+                }
+                if (inputNumberOfDish[i].value == 0){
+                    inputCheckbox[i].checked = false;
+                }
+            }
+        }
+    
+    </script>
 <%- include('includes/end.ejs') %>
