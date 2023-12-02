@@ -16,6 +16,8 @@ router.get('/cart/view/:id', adminController.adminCartView)
 router.get('/voucher', adminController.adminVoucherPage);
 
 router.get('/staff', adminController.adminStaffPage);
+router.get('/staff/update/:id', adminController.getUpdateStaff);
+router.post('/staff/update/:id', adminController.updateStaff);
 router.post('/staff/delete/:id', adminController.deleteStaff);
 router.post('/staff', adminController.findInvoiceAndStaff)
 

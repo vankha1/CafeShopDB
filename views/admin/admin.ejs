@@ -31,7 +31,7 @@
                             <th class="w-[10%] text-violet-500">Khac</th>
                         </thead>
                         <tbody>
-                        <% drinkDishes.forEach(dish => { %>
+                        <% drinkDishes.forEach(dish => { if (dish.current_status){ %>
                             <tr>
                                 <!-- <th><input type="checkbox"></th> -->
                                 <th>
@@ -46,7 +46,7 @@
                                     </form>
                                 </th>
                             </tr>
-                            <% }) %>
+                            <% }}) %>
                         </tbody>
                 <% } %>
             </table>
@@ -68,7 +68,7 @@
                             <th class="w-[10%] text-violet-500">Khac</th>
                         </thead>
                         <tbody>
-                        <% anotherDishes.forEach(dish => { %>
+                        <% anotherDishes.forEach(dish => { if (dish.current_status){ %>
                             <tr>
                                 <!-- <th><input type="checkbox"></th> -->
                                 <th>
@@ -83,7 +83,7 @@
                                     </form>
                                 </th>
                             </tr>
-                            <% }) %>
+                            <% }}) %>
                         </tbody>
                 <% } %>
             </table>

@@ -168,10 +168,17 @@ const updateProfile = (req, res, next) => {
     password,
     address,
     phoneNumber,
-    dateOfBirth,
-    supervisorID,
-    salary,
+    dateOfBirth
   } = req.body;
+
+  if (password.length < 6){
+    const error = new Error('Password must be at least 6 characters');
+    res.status(500).render("500.ejs", {
+      pageTitle: "Error !",
+      message: error.message,
+    });
+    return;
+  }
 
   const q = "CALL SuaThongTinNhanVien(?)";
 
@@ -181,13 +188,11 @@ const updateProfile = (req, res, next) => {
       [
         id,
         name,
-        email,
+        email, 
         password,
         address,
         dateOfBirth,
-        phoneNumber,
-        supervisorID,
-        salary,
+        phoneNumber
       ],
     ],
     (err, result) => {

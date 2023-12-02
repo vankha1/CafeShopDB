@@ -14,22 +14,22 @@
     
                 <div class="flex flex-col" action="">
                     <label for="email">Email</label>
-                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.email  %>" autocomplete="off" type="text" id="email" name="email">
+                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.email  %>" autocomplete="off" type="text" id="email" name="email" placeholder="abc@gmail.com">
     
                     <label for="name">Name</label>
-                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.HoVaTen  %>" autocomplete="off" type="text" id="name" name="name">
+                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.HoVaTen  %>" autocomplete="off" type="text" id="name" name="name" placeholder="max length 50 characters">
 
                     <label for="password">Password</label>
-                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.mk  %>" autocomplete="off" type="text" id="password" name="password">
+                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.mk  %>" autocomplete="off" type="text" id="password" name="password" placeholder="at least 6 characters">
     
                     <label for="address">Address</label>
-                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.DiaChi  %>" autocomplete="off" type="text" id="address" name="address">
+                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.DiaChi  %>" autocomplete="off" type="text" id="address" name="address" placeholder="max length 50 characters">
     
                     <label for="phoneNumber">Phone number</label>
-                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.SDT  %>" autocomplete="off" type="text" id="phoneNumber" name="phoneNumber">
+                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.SDT  %>" autocomplete="off" type="text" id="phoneNumber" name="phoneNumber" placeholder="max length 10 characters">
 
                     <label for="dateOfBirth">Date of Birth</label>
-                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.NgaySinh.toJSON().slice(0, 10)  %>" autocomplete="off" type="text" id="dateOfBirth" name="dateOfBirth">
+                    <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.NgaySinh.toJSON().slice(0, 10)  %>" autocomplete="off" type="date" id="dateOfBirth" name="dateOfBirth">
 
                     <label for="supervisorID">Supervisor ID</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border bg-zinc-200" value="<%= staff.MaGiamSat  %>" autocomplete="off" type="text" id="supervisorID" name="supervisorID" readonly="true">

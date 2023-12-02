@@ -34,7 +34,8 @@
                         <th><%= staff.email %></th>
                         <th><%= staff.DiaChi %></th>
                         <th><%= staff.SDT %></th>
-                        <th>
+                        <th class="flex justify-center items-center">
+                            <a href="/admin/staff/update/<%= staff.MaNV %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
                             <form action="/admin/staff/delete/<%= staff.MaNV %>" method="post">
                                 <input type="hidden" name="name" value="value" /> 
                                 

@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 const dishPage = (req, res, next) => {
   const q =
-    "SELECT Maloaimon, Ten, Loaimon, Kichco, dongia FROM (loaimon natural join mon)";
+    "SELECT Maloaimon, Ten, Loaimon, Kichco, dongia, current_status FROM (loaimon natural join mon)";
 
   db.query(q, (err, dishes) => {
     if (err) {
@@ -28,15 +28,17 @@ const dishPage = (req, res, next) => {
           Loaimon: cur.Loaimon,
           Kichco: [cur.Kichco],
           dongia: [cur.dongia],
+          current_status: [cur.current_status]
         });
       } else {
         acc[existingIndex].Kichco.push(cur.Kichco);
         acc[existingIndex].dongia.push(cur.dongia);
+        acc[existingIndex].current_status.push(cur.current_status);
       }
       return acc;
     }, []);
 
-    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Nuoc uong");
+    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Do uong");
     const anotherDishes = dishes.filter((dish) => dish.Loaimon === "Do an");
 
     res.render("dish.ejs", {
@@ -83,14 +85,6 @@ const addToCart = (req, res, next) => {
       const Kichco = key.replace(/[0-9]/g, "");
       const Giatheongay = orderedDishes[key][2];
       const Soluong = orderedDishes[key][1];
-
-      // if (!MaLoaiMon || !Kichco || !Giatheongay || !Soluong) {
-      //   res.status(500).render("500.ejs", {
-      //     pageTitle: "Error !",
-      //     message: err.message,
-      //   });
-      //   return;
-      // }
 
       const q1 =
         "INSERT INTO thuocvemon (Mamon, Madonhang, Kichco, Giatheongay, Soluong) VALUES (?)";
@@ -153,11 +147,16 @@ const addDish = (req, res, next) => {
     const count = result[0].count;
 
     if (foodType > count || foodType <= 0) {
-      res.send("Please select a different food type");
+      const error = new Error("Food type is out of range !");
+
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: error.message,
+      });
       return;
     }
 
-    const q2 = "INSERT INTO mon (Maloaimon, Kichco, Dongia) VALUES (?)";
+    const q2 = "CALL themmon (?)";
 
     db.query(q2, [[foodType, size, price]], (err, result) => {
       if (err) {
@@ -226,7 +225,7 @@ const deleteDish = (req, res, next) => {
   const maLoaiMon = id.match(/\d+/g).join("");
   const size = id.replace(/[0-9]/g, "");
 
-  const q = "DELETE FROM mon WHERE Maloaimon = ? AND Kichco = ?";
+  const q = "UPDATE mon SET current_status = 0 WHERE Maloaimon = ? AND Kichco = ?";
 
   db.query(q, [maLoaiMon, size], (err) => {
     if (err){

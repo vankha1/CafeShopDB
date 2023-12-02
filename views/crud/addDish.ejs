@@ -17,17 +17,17 @@
                 <div class="form-group col-md-4 mb-4">
                     <label for="foodType">Loai mon</label>
                     <% if (nameBtn === 'Them'){ %>
-                        <input type="text" class="form-control" name="foodType" id="foodType">
+                        <input type="text" class="form-control" name="foodType" id="foodType" placeholder="1-20">
                     <% } else { %>
-                    <input type="text" class="form-control" name="foodType" id="foodType" value="<%= dish.Maloaimon %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>">
+                    <input type="text" class="form-control" name="foodType" id="foodType" value="<%= dish.Maloaimon %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>" placeholder="1-20">
                     <% } %>
                 </div>
                 <div class="form-group col-md-4 mb-4">
                     <label for="size">Kich co</label>
                     <% if (nameBtn === 'Them'){ %>
-                        <input type="text" class="form-control" name="size" id="size">
+                        <input type="text" class="form-control" name="size" id="size" placeholder="L-M-XL">
                     <% } else { %>
-                        <input type="text" class="form-control" name="size" id="size" value="<%= dish.Kichco %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>">
+                        <input type="text" class="form-control" name="size" id="size" value="<%= dish.Kichco %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>" placeholder="L-M-XL">
                     <% } %>
                 </div>
                 <div class="form-group col-md-4 mb-4">
