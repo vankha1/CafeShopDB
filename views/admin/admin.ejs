@@ -5,23 +5,23 @@
         <%- include('../includes/navigation.ejs') %>
             <main class="px-24 py-10">
                 <div class="flex gap-10">
-                    <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
-                    <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
-                    <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
+                    <a href="/admin" class="text-black text-2xl font-bold mb-5">Món</a>
+                    <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Bàn</a>
+                    <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Đơn hàng</a>
                     <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
-                    <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
+                    <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhân viên</a>
                 </div>
 
                 <div>
                     <a href="/dish/admin/add"
-                        class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 no-underline px-[20px] py-[10px]">Them
-                        mon</a>
+                        class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 no-underline px-[20px] py-[10px]">Thêm
+                        món</a>
                 </div>
 
                 <hr class="my-5 border border-black">
 
                 <div>
-                    <h3 class="text-black text-2xl not-italic font-bold mb-5">Thuc uong</h3>
+                    <h3 class="text-black text-2xl not-italic font-bold mb-5">Thức uống</h3>
                     <table class="w-50%">
                         <% if (drinkDishes.length===0) { %>
                             <span>Không còn thức uống</span>
@@ -48,14 +48,14 @@
                                             </th>
                                             <th class="flex justify-center items-center">
                                                 <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco %>"
-                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua
-                                                    mon</a>
+                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sửa
+                                                    món</a>
                                                 <form
                                                     action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco %>"
                                                     method="post">
                                                     <button type="submit"
-                                                        class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa
-                                                        mon</button>
+                                                        class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xóa
+                                                        món</button>
                                                 </form>
                                             </th>
                                         </tr>
@@ -95,14 +95,14 @@
                                             </th>
                                             <th class="flex justify-center items-center">
                                                 <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco %>"
-                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua
-                                                    mon</a>
+                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sửa
+                                                    món</a>
                                                 <form
                                                     action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco %>"
                                                     method="post">
                                                     <button type="submit"
-                                                        class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa
-                                                        mon</button>
+                                                        class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xóa
+                                                        món</button>
                                                 </form>
                                             </th>
                                         </tr>

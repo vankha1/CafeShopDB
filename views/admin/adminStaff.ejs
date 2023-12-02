@@ -12,7 +12,7 @@
                     <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhân viên</a>
                 </div>
                 <a href="/signup"
-                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
+                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Thêm</a>
                 <hr class="my-5 border border-black">
                 <div>
                     <h3 class="text-black text-2xl not-italic font-bold mb-5">Nhân viên</h3>
@@ -48,12 +48,12 @@
                                         </th>
                                         <th class="flex justify-center items-center">
                                             <a href="/admin/staff/update/<%= staff.MaNV %>"
-                                                class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
+                                                class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Thêm</a>
                                             <form action="/admin/staff/delete/<%= staff.MaNV %>" method="post">
                                                 <input type="hidden" name="name" value="value" />
 
                                                 <button type="submit"
-                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa</button>
+                                                    class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xóa</button>
                                             </form>
                                         </th>
                                     </tr>
