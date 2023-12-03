@@ -3,60 +3,48 @@
 <body>
     <%- include('../includes/navigation.ejs')  %>    
     <main class="px-24 py-10">
-        <div class="flex gap-10">
-            <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
-            <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
-            <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
-            <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
-            <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
-        </div>
+        <%- include('./adminHeader.ejs') %>
 
-        <!-- <div>
-            <a href="/voucher/admin/add" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them mon</a>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Xoa mon</button>
-            <button class=" border-2 py-2 px-4 rounded-full bg-white-800 text-violet-800 text-center text-sm mr-5 font-medium">Chi tiet</button>
-        </div>
-                 -->
         <hr class="my-5 border border-black">
 
         <div>
             <h3 class="text-black text-2xl not-italic font-bold mb-5">VOUCHER</h3>
             <% if (voucher.length > 0){ %>
-            <table class="w-full">
-                <thead>
+            <table class="w-full text-lg">
+                <thead class="bg-zinc-300 h-[50px]">
                     <!-- <th class="w-[5%]"></th> -->
-                    <th class="w-[5%]">STT</th>
-                    <th class="w-[10%]">Phan tram giam gia</th>
-                    <th class="w-[10%]">Ghi chu</th>
-                    <th class="w-[10%]">Giam gia toi da</th>
-                    <th class="w-[10%]">So luong</th>
-                    <th class="w-[10%]">Thoi gian bat dau</th>
-                    <th class="w-[10%]">Thoi gian ket thuc</th>
-                    <th class="w-[10%]">Khac</th>
+                    <th class="w-[5%] border-r-2">STT</th>
+                    <th class="w-[10%] border-r-2">Phần trăm giảm giá</th>
+                    <th class="w-[10%] border-r-2">Ghi chú</th>
+                    <th class="w-[10%] border-r-2">Giảm giá tối đa</th>
+                    <th class="w-[10%] border-r-2">Số lượng</th>
+                    <th class="w-[10%] border-r-2">Thời gian bắt đầu</th>
+                    <th class="w-[10%] border-r-2">Thời gian kết thúc</th>
+                    <th class="w-[10%] border-r-2">Khác</th>
                 </thead>
-                <tbody>
+                <tbody class="bg-zinc-100">
                     <% voucher.forEach(v => { %>
-                    <tr>
+                    <tr class="h-[40px] border-b-2">
                         <!-- <th><input type="checkbox"></th> -->
-                        <th><%= v.id %></th>
-                        <th>
+                        <th class="border-r-2"><%= v.id %></th>
+                        <th class="border-r-2">
                             <%= v.discount_percent  %>
                         </th>
-                        <th><%= v.note ? v.note : 'Khong co note'  %></th>
-                        <th><%= v.max_discount  %></th>
-                        <th><%= v.number === 0 ? 'Da het the voucher' : v.number  %></th>
-                        <th><%= v.start_time  %></th>
-                        <th><%= v.end_time  %></th>
-                        <th class="flex">
-                            <a href="/voucher/admin/add/<%= v.id %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Them</a>
-                            <a href="/voucher/admin/delete/<%= v.id %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa</a>
+                        <th class="border-r-2"><%= v.note ? v.note : 'Khong co note'  %></th>
+                        <th class="border-r-2"><%= v.max_discount  %></th>
+                        <th class="border-r-2"><%= v.number === 0 ? 'Da het the voucher' : v.number  %></th>
+                        <th class="border-r-2"><%= v.start_time  %></th>
+                        <th class="border-r-2"><%= v.end_time  %></th>
+                        <th class="border-r-2">
+                            <a href="/voucher/admin/add/<%= v.id %>" class="inline-block text-sm text-white text-center bg-green-600 rounded no-underline px-[5px] py-[5px]">Thêm thẻ</a>
+                            <a href="/voucher/admin/delete/<%= v.id %>" class="inline-block text-sm text-white text-center mr bg-red-600 rounded no-underline px-[5px] py-[5px]">Xóa thẻ</a>
                         </th>
                     </tr>
                     <% }) %>
                 </tbody>
             </table>
             <% } else { %>
-                <p>Khong co voucher</p>
+                <h2>KHÔNG CÓ VOUCHER NÀO !!!!</h2>
             <% } %>
         </div>
     </main>

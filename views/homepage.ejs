@@ -2,23 +2,17 @@
 </head>
 <body>
     <%- include('includes/navigation.ejs')  %>    
-    <main class="mx-auto px-10 py-10 space-y-8 flex flex-col max-w-screen-xl">
+    <main class="mx-auto px-2 py-10 flex flex-col max-w-screen-xl">
         <div class="w-full h-full flex justify-center items-center mb-5">
             <img class="w-[769px] h-[400px]" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" />
             <div class="w-[511px] h-[400px] bg-neutral-500">
-                <div class="text-[white] text-sm font-normal leading-[21px]">
-                    Cafe
-                </div>
-                <div class="text-white text-2xl font-bold leading-9">
-                    Cafe
-                </div>
-                <div class="text-white text-sm font-bold leading-5">
-                    Nhận khuyến mãi lên tới 99% khi mua 100 ly trà thảo mộc<br/>Nhập mã THAOMOC99
+                <div class="text-[white] font-bold text-2xl leading-[21px]">
+                    WELCOME TO OUR COFFEE SHOP
                 </div>
             </div>
         </div>
 
-        <h2 class="text-black text-2xl not-italic font-bold mb-5">Loai mon</h2>
+        <h2 class="text-black text-2xl not-italic font-bold mb-5">Loại món của chúng tôi</h2>
         <div class="flex gap-20 flex-wrap">
             <% dishTypes.forEach(dishType => { %>
                 <div class="flex w-56 flex-col items-start gap-2">
@@ -28,8 +22,8 @@
                     <div class="title text-black text-left font-bold"><%= dishType.Ten  %></div>
                     <span class="price"><%= dishType.Mota  %></span>
                     <div class="flex justify-between items-center self-stretch">
-                        <span class="price">From <strong><%= dishType.Giobatdau  %></strong></span>
-                        <span class="price"> To <strong><%= dishType.Gioketthuc  %></strong></span>
+                        <span class="price">Từ <strong><%= dishType.Giobatdau  %></strong></span>
+                        <span class="price">Đến <strong><%= dishType.Gioketthuc  %></strong></span>
                     </div>
                 </div>
             <% }) %>

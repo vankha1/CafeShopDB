@@ -4,7 +4,7 @@
     <%- include('includes/navigation.ejs')  %>    
     <main class="px-24 py-10">
 
-        <h2 class="text-black text-2xl not-italic font-bold mb-5">Ban</h2>
+        <h2 class="text-black text-2xl not-italic font-bold mb-5">Bàn</h2>
         <form action="/table/add-table-to-cart" method="post">
             <% if (tables.length > 0) { %>
                 <div class="flex gap-20">
@@ -13,9 +13,9 @@
                             <div class="image">
                                 <img class="w-56 h-48" src="/images/6cfbfa0af88fa50a9d19459774cdf677.png" alt="">
                             </div>
-                            <div class="title text-black text-left font-bold"><span>So luong : </span><%= table.seats %></div>
+                            <div class="title text-black text-left font-bold"><span>Số lượng : </span><%= table.seats %></div>
                             <div class="flex justify-between items-center self-stretch">
-                                <span class="price"><%= table.current_status ? 'Con trong' : 'Da duoc dat' %></span>
+                                <span class="price"><%= table.current_status ? 'Còn trống' : 'Đã được đặt' %></span>
                                 <% if (table.current_status){ %>
                                     <input type="checkbox" id="table" name="tableId" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="<%= table.ID  %>"></input>
                                 <% } %>
@@ -24,32 +24,35 @@
                     <% }) %>
                 </div>
             <% } else { %>
-                <h2>KHONG CON BAN</h2>
+                <h2>KHÔNG CÒN BÀN !!</h2>
             <% } %>
-            <div class="customer mt-20">
-                <h2 class="mb-3">THONG TIN KHACH HANG</h2>
+
+            <hr class="my-5 border border-black">
+
+            <div class="customer">
+                <h1 class="mb-3 font-bold text-2xl">THÔNG TIN KHÁCH HÀNG</h1>
                 <div class="mb-3">
-                    <label for="nameCustomer">Ten</label><br>
+                    <label for="nameCustomer">Tên</label><br>
                     <input class="p-1 border w-[500px]" type="text" id="nameCustomer" name="nameCustomer">
                 </div>
                 <div class="mb-3">
-                    <label for="addressCustomer">Dia chi</label><br>
+                    <label for="addressCustomer">Địa chỉ</label><br>
                     <input class="p-1 border w-[500px]" type="text" id="addressCustomer" name="addressCustomer">
                 </div>
                 <div class="mb-3">
-                    <label for="startDate">Ngay dat</label><br>
+                    <label for="startDate">Ngày đặt</label><br>
                     <input class="p-1 border w-[500px]" type="date" id="startDate" name="startDate">
                 </div>
                 <div class="mb-3">
-                    <label for="startTime">Gio bat dau</label><br>
+                    <label for="startTime">Giờ bắt đầu</label><br>
                     <input class="p-1 border w-[500px]" type="time" id="startTime" name="startTime">
                 </div>
                 <div class="mb-3">
-                    <label for="endTime">Gio ket thuc</label><br>
+                    <label for="endTime">Giờ kết thúc</label><br>
                     <input class="p-1 border w-[500px]" type="time" id="endTime" name="endTime">
                 </div>
             </div>
-            <button type="submit" class="py-2 px-10 rounded-lg bg-purple-800 text-white text-center text-sm not-italic font-medium leading-5 float-right">Dat</button>
+            <button type="submit" class="py-2 px-8 rounded-lg bg-purple-800 text-white text-center text-base not-italic font-medium leading-5 float-right">Đặt bàn</button>
         </form>
     </main>
     <script>

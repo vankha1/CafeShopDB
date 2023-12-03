@@ -3,36 +3,31 @@
 <body>
     <%- include('../includes/navigation.ejs')  %>    
     <main class="px-24 py-10">
-        <div class="flex gap-10">
-            <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
-            <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
-            <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
-            <a href="/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
-            <a href="/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
-        </div>
+
+        <%- include('./adminHeader.ejs') %>
 
         <hr class="my-5 border border-black">
 
         <div>
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Ban</h3>
-            <table class="w-full">
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Bàn</h3>
+            <table class="w-[50%] text-lg mx-auto">
                 <% if (fullTables.length === 0){ %>
-                    Khong con ban
+                    <h2>Không còn bàn</h2>
                 <% } else { %>
-                    <thead>
-                        <th class="w-[40%]">So thu tu</th>
-                        <th class="w-[30%]">So luong ghe</th>
-                        <th class="w-[20%]">Tinh trang</th>
+                    <thead class="bg-zinc-300 h-[50px]">
+                        <th class="w-[20%] border-r-2">Số thứ tự</th>
+                        <th class="w-[20%] border-r-2">Số lượng ghế</th>
+                        <th class="w-[20%] border-r-2">Tình trạng</th>
                         <!-- <th class="w-[10%]">Khac</th> -->
                     </thead>
                     <% tables.forEach(table => { %>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    Ban hop <%= table.ID  %>
+                        <tbody class="bg-zinc-100">
+                            <tr class="h-[40px] border-b-2">
+                                <th class="border-r-2">
+                                    Bàn họp số <%= table.ID  %>
                                 </th>
-                                <th><%= table.seats  %></th>
-                                <th><%= table.current_status ? 'Con trong' : 'Da duoc dat'  %></th>
+                                <th class="border-r-2"><%= table.seats  %></th>
+                                <th class="border-r-2"><%= table.current_status ? 'Còn trống' : 'Đã được đặt'  %></th>
                             </tr>
                         </tbody>
                     <% }) %>
@@ -43,32 +38,32 @@
         <hr class="my-5 border border-black">
 
         <form action="/admin/table/detail" method="post">
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Tinh tong doanh thu theo ban</h3>
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Tính tổng doanh thu theo bàn</h3>
             <div class="mb-3">
-                <label for="tableId">Ma ban</label><br>
+                <label class="font-bold" for="tableId">Mã bàn</label><br>
                 <input class="p-1 border w-[500px]" type="text" id="tableId" name="tableId">
             </div>
             <div class="mb-3">
                 <div class="inline-block mr-5">
-                    <label for="startDate">Ngay bat dau</label><br>
+                    <label class="font-bold" for="startDate">Ngày bắt đầu</label><br>
                     <input class="p-1 border w-[500px]" type="date" id="startDate" name="startDate">
                 </div>
                 <div class="inline-block">
-                    <label for="startTime">Gio bat dau</label><br>
+                    <label class="font-bold" for="startTime">Giờ bắt đầu</label><br>
                     <input class="p-1 border w-[500px]" type="time" id="startTime" name="startTime">
                 </div>
             </div>
             <div class="mb-3">
                 <div class="inline-block mr-5">
-                    <label for="endDate">Ngay ket thuc</label><br>
+                    <label class="font-bold" for="endDate">Ngày kết thúc</label><br>
                     <input class="p-1 border w-[500px]" type="date" id="endDate" name="endDate">
                 </div>
                 <div class="inline-block">
-                    <label for="endTime">Gio ket thuc</label><br>
+                    <label class="font-bold" for="endTime">Giờ kết thúc</label><br>
                     <input class="p-1 border w-[500px]" type="time" id="endTime" name="endTime">
                 </div>
             </div>
-            <button type="submit" class=" border-2 py-2 px-4 rounded-full bg-violet-800 text-white text-center text-sm mr-5 font-medium float-right">Chi tiet</button>
+            <button type="submit" class=" border-2 py-2 px-4 bg-violet-800 rounded text-white text-center text-lg font-medium float-right">Chi tiết</button>
         </form>
     </main>
 <%- include('../includes/end.ejs') %>

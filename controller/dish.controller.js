@@ -28,7 +28,7 @@ const dishPage = (req, res, next) => {
           Loaimon: cur.Loaimon,
           Kichco: [cur.Kichco],
           dongia: [cur.dongia],
-          current_status: [cur.current_status]
+          current_status: [cur.current_status],
         });
       } else {
         acc[existingIndex].Kichco.push(cur.Kichco);
@@ -55,8 +55,8 @@ const addToCart = (req, res, next) => {
   const nameCustomer = req.body.nameCustomer;
   const addressCustomer = req.body.addressCustomer;
   const cardNumber = parseInt(req.body.cardNumber);
-  const voucherId = parseInt(req.body.voucherId);
-  const voucherSerial = parseInt(req.body.voucherSerial);
+  const voucherId = req.body.voucherId ? req.body.voucherId : "";
+  const voucherSerial = req.body.voucherSerial ? req.body.voucherSerial : "";
 
   let orderedDishes = { ...req.body };
 
@@ -70,42 +70,18 @@ const addToCart = (req, res, next) => {
   // const cart = { ...result, nameCustomer, addressCustomer, cardNumber };
   // console.log(cart);
   const q = "SELECT insertAndGetID (?)";
-  db.query(q, [[nameCustomer, addressCustomer, cardNumber]], (err, result) => {
-    if (err) {
-      res.status(500).render("500.ejs", {
-        pageTitle: "Error !",
-        message: err.message,
-      });
-      return;
-    }
-
-    const idDonHang = Object.values(result[0])[0];
-    for (const key in orderedDishes) {
-      const MaLoaiMon = key.match(/\d+/g).join("");
-      const Kichco = key.replace(/[0-9]/g, "");
-      const Giatheongay = orderedDishes[key][2];
-      const Soluong = orderedDishes[key][1];
-
-      const q1 =
-        "INSERT INTO thuocvemon (Mamon, Madonhang, Kichco, Giatheongay, Soluong) VALUES (?)";
-      db.query(
-        q1,
-        [[MaLoaiMon, idDonHang, Kichco, Giatheongay, Soluong]],
-        (err, result) => {
-          if (err) {
-            res.status(500).render("500.ejs", {
-              pageTitle: "Error !",
-              message: err.message,
-            });
-            return;
-          }
-        }
-      );
-    }
-    const q2 =
-      "INSERT INTO payment_apply (order_id, STT_voucher, id_voucher) VALUES (?)";
-
-    db.query(q2, [[idDonHang, voucherSerial, voucherId]], (err, result) => {
+  db.query(
+    q,
+    [
+      [
+        nameCustomer,
+        addressCustomer,
+        cardNumber,
+        parseInt(voucherId),
+        parseInt(voucherSerial),
+      ],
+    ],
+    (err, result) => {
       if (err) {
         res.status(500).render("500.ejs", {
           pageTitle: "Error !",
@@ -113,16 +89,43 @@ const addToCart = (req, res, next) => {
         });
         return;
       }
-    });
 
-    res.send("add success");
-  });
+      const idDonHang = Object.values(result[0])[0];
+
+      for (const key in orderedDishes) {
+        const MaLoaiMon = key.match(/\d+/g).join("");
+        const Kichco = key.replace(/[0-9]/g, "");
+        const Giatheongay = orderedDishes[key][2];
+        const Soluong = orderedDishes[key][1];
+
+        const q1 =
+          "INSERT INTO thuocvemon (Mamon, Madonhang, Kichco, Giatheongay, Soluong) VALUES (?)";
+        db.query(
+          q1,
+          [[MaLoaiMon, idDonHang, Kichco, Giatheongay, Soluong]],
+          (err, result) => {
+            if (err) {
+              res.status(500).render("500.ejs", {
+                pageTitle: "Error !",
+                message: err.message,
+              });
+              return;
+            }
+          }
+        );
+      }
+      res.send("add success");
+    }
+  );
 };
 
 const getAddDish = (req, res, next) => {
+  const idMaloaimon = req.params.id;
+
   res.render("crud/addDish.ejs", {
     pageTitle: "Add dish",
     nameBtn: "Them",
+    idMaloaimon,
   });
 };
 
@@ -182,7 +185,7 @@ const getUpdateDish = (req, res, next) => {
   const q = "SELECT * FROM mon WHERE Maloaimon = ? AND Kichco = ?";
 
   db.query(q, [[maLoaiMon], [size]], (err, dish) => {
-    if (err){
+    if (err) {
       res.status(500).render("500.ejs", {
         pageTitle: "Error !",
         message: err.message,
@@ -225,10 +228,11 @@ const deleteDish = (req, res, next) => {
   const maLoaiMon = id.match(/\d+/g).join("");
   const size = id.replace(/[0-9]/g, "");
 
-  const q = "UPDATE mon SET current_status = 0 WHERE Maloaimon = ? AND Kichco = ?";
+  const q =
+    "UPDATE mon SET current_status = 0 WHERE Maloaimon = ? AND Kichco = ?";
 
   db.query(q, [maLoaiMon, size], (err) => {
-    if (err){
+    if (err) {
       res.status(500).render("500.ejs", {
         pageTitle: "Error !",
         message: err.message,
