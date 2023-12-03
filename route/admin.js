@@ -19,6 +19,8 @@ router.get('/staff', adminController.adminStaffPage);
 router.get('/staff/update/:id', adminController.getUpdateStaff);
 router.post('/staff/update/:id', adminController.updateStaff);
 router.post('/staff/delete/:id', adminController.deleteStaff);
-router.post('/staff', adminController.findInvoiceAndStaff)
+router.post('/staff', adminController.findInvoiceAndStaff);
+router.get('/staff/sort', adminController.sortByName);
+router.post('/staff/findByName', adminController.findByName);
 
 module.exports = router;

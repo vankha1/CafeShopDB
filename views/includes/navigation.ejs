@@ -1,7 +1,7 @@
-<header class="">
+<header class="text-lg">
     <nav class="flex bg-[#CEB1E4] w-full h-[60px] px-[50px] justify-between items-center shrink-0">
         <div>
-            <a href="/">Cafe</a>
+            <a href="/"><img src="/images/favicon.png" class="w-[50px] rounded-full" alt=""></a>
         </div>
         <ul class="flex justify-between items-center gap-[30px]">
             <li>
@@ -43,26 +43,26 @@
             </li>
             <% } %>
         </ul>
-        <ul class="text-black font-bold leading-[normal]">
+        <ul class="flex justify-center items-center gap-4 text-black font-bold leading-[normal]">
             <% if(!isAuth) { %>
                 <li class="inline mr-3">
-                    <a href="/login">Login</a>
+                    <a href="/login">Đăng nhập</a>
                 </li>
                 <!-- <li class="inline">
                     <a href="/signup">Signup</a>
                 </li> -->
             <% } else { %>
+                <% if (isAuth !== 'admin') { %>
+                    <li class="inline">
+                        <a href="/profile"><img width="40px" class="bg-black rounded-full" src="/images/images.jpg" alt=""></a>
+                    </li>
+                <% } %>
                 <li class="inline">
                     <form action="/logout" method="post">
                         <input type="hidden" name="" id="">
-                        <button type="submit">Logout</button>
+                        <button type="submit">Đăng xuất</button>
                     </form>
                 </li>
-                <% if (isAuth !== 'admin') { %>
-                <li class="inline">
-                    <a href="/profile">image</a>
-                </li>
-                <% } %>
             <% } %>
         </ul>
     </nav>

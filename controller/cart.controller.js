@@ -87,7 +87,9 @@ const invoiceExport = (req, res, next) => {
           return;
         }
         // console.log(r);
-        res.send("success......");
+        res.render('success.ejs', {
+          message: "Bạn đã xuất hóa đơn thành công !!!"
+        });
       }
     );
   });

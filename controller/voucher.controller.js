@@ -14,9 +14,9 @@ const addVoucher = (req, res, next) => {
   const id = req.params.id;
   const stt = req.body.stt;
 
-  const q = "SELECT * FROM voucher_card where id = ?";
+  const q = "CALL addVoucher_card (?)";
 
-  db.query(q, [id], (err, cards) => {
+  db.query(q, [[parseInt(id), parseInt(stt)]], (err, cards) => {
     if (err) {
       res.status(500).render("500.ejs", {
         pageTitle: "Error !",
@@ -25,47 +25,41 @@ const addVoucher = (req, res, next) => {
       return;
     }
 
-    const isExist = cards.some((card) => card.STT === parseInt(stt));
-
-    // console.log(isExist, cards);
-
-    if (isExist) {
-      res.send("card already exists");
-    } else {
-      db.query(
-        "insert into voucher_card (id, stt) values (?)",
-        [[parseInt(id), parseInt(stt)]],
-        (err) => {
-          if (err) {
-            res.status(500).render("500.ejs", {
-              pageTitle: "Error !",
-              message: err.message,
-            });
-            return;
-          }
-          res.redirect("/admin/voucher");
-        }
-      );
-    }
+    res.redirect('/admin/voucher');
   });
 };
 
 const getDeleteVoucher = (req, res, next) => {
   const id = req.params.id;
 
-  res.render("crud/addVoucher.ejs", {
-    pageTitle: "Add Voucher",
-    id,
-    option: "delete",
-  });
+  const q = "SELECT STT FROM voucher_card WHERE id = ? AND current_status = 1";
+
+  db.query(q, [id], (err, result) => {
+
+    if (err){
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+    console.log(result);
+    res.render("crud/addVoucher.ejs", {
+      pageTitle: "Add Voucher",
+      id,
+      option: "delete",
+      voucher: result
+    });
+  })
+
 };
 const deleteVoucher = (req, res, next) => {
   const id = req.params.id;
   const stt = req.body.stt;
 
-  const q = "SELECT * FROM voucher_card where id = ?";
+  const q = "CALL deleteVoucher_card (?)";
 
-  db.query(q, [id], (err, cards) => {
+  db.query(q, [[parseInt(id), parseInt(stt)]], (err, cards) => {
     if (err) {
       res.status(500).render("500.ejs", {
         pageTitle: "Error !",
@@ -74,28 +68,7 @@ const deleteVoucher = (req, res, next) => {
       return;
     }
 
-    const isExist = cards.some((card) => card.STT === parseInt(stt));
-
-    // console.log(isExist, cards);
-
-    if (!isExist) {
-      res.send("card doesn't exists");
-    } else {
-      db.query(
-        "delete from voucher_card where stt = ?",
-        [parseInt(stt)],
-        (err) => {
-          if (err) {
-            res.status(500).render("500.ejs", {
-              pageTitle: "Error !",
-              message: err.message,
-            });
-            return;
-          }
-          res.redirect("/admin/voucher");
-        }
-      );
-    }
+    res.redirect('/admin/voucher');
   });
 };
 

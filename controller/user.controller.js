@@ -88,7 +88,7 @@ const login = (req, res, next) => {
   }
 
   if (email && password) {
-    const query = "SELECT MaNV, email, mk FROM nhanvien where email = ?";
+    const query = "SELECT MaNV, email, mk FROM nhanvien where email = ? and statusNV = 1";
 
     db.query(query, [email], (err, user) => {
       // if (!user || user.length === 0){
@@ -105,7 +105,9 @@ const login = (req, res, next) => {
           }
         }
       } else {
-        res.send("Incorrect Email Address");
+        res.render("500.ejs", {
+          message: "Email hoặc mật khẩu sai hoặc nhân viên đã nghỉ làm !!!"
+        });
       }
     });
   }

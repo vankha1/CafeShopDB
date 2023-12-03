@@ -3,50 +3,48 @@
 <body>
     <%- include('../includes/navigation.ejs')  %>    
     <main class="px-24 py-10">
-        <div class="flex gap-10">
-            <a href="/admin" class="text-black text-2xl font-bold mb-5">Mon</a>
-            <a href="/admin/table" class="text-black text-2xl font-bold mb-5">Ban</a>
-            <a href="/admin/cart" class="text-black text-2xl font-bold mb-5">Don hang</a>
-            <a href="/admin/voucher" class="text-black text-2xl font-bold mb-5">Voucher</a>
-            <a href="/admin/staff" class="text-black text-2xl font-bold mb-5">Nhan vien</a>
-        </div>
 
+        <%- include('./adminHeader.ejs') %>
+        
         <div>
-            <a href="/dish/admin/add" class="inline-block rounded-full text-sm text-white text-center mr-5 bg-violet-800 no-underline px-[20px] py-[10px]">Them mon</a>
+            
         </div>
 
         <hr class="my-5 border border-black">
 
         <div>
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Thuc uong</h3>
-            <table class="w-50%">
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Đồ uống</h3>
+            <table class="text-lg">
                 <% if (drinkDishes.length === 0) { %>
-                    <span>Khong con thuc uong</span>
+                    <span>Không còn đồ uống</span>
                 <% } else { %>
-                        <thead>
-                            <!-- <th class="w-[5%]"></th> -->
-                            <th class="w-[10%] text-violet-500">Tên</th>
-                            <th class="w-[10%] text-violet-500">Kich co</th>
-                            <th class="w-[10%] text-violet-500">Giá</th>
-                            <th class="w-[10%] text-violet-500">Khac</th>
+                        <thead class="bg-zinc-300 h-[50px]">
+                            <th class="w-[5%] border-r-2">Mã loại món</th>
+                            <th class="w-[10%] border-r-2">Tên</th>
+                            <th class="w-[10%] border-r-2">Kích cỡ</th>
+                            <th class="w-[10%] border-r-2">Giá</th>
+                            <th class="w-[10%] border-r-2">Khác</th>
                         </thead>
-                        <tbody>
-                        <% drinkDishes.forEach(dish => { if (dish.current_status){ %>
-                            <tr>
-                                <!-- <th><input type="checkbox"></th> -->
-                                <th>
-                                    <%= dish.Ten  %>
-                                </th>
-                                <th><%= dish.Kichco  %></th>
-                                <th><%= dish.Dongia  %></th>
-                                <th class="flex justify-center items-center">
-                                    <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a>
-                                    <form action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco %>" method="post">
-                                        <button type="submit" class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa mon</button>
-                                    </form>
-                                </th>
-                            </tr>
-                            <% }}) %>
+                        <tbody class="bg-zinc-100">
+                            <% drinkDishes.forEach(dish => { %>
+                                <% for (let i = 0; i < dish.Kichco.length; i++){ if (dish.current_status[i]){ %>
+                                    <tr class="h-[40px] border-b-2">
+                                        <th class="border-r-2"><%= dish.Maloaimon %></th> 
+                                        <th class="border-r-2">
+                                            <%= dish.Ten  %>
+                                        </th>
+                                        <th class="border-r-2"><%= dish.Kichco[i] %></th>
+                                        <th class="border-r-2"><%= dish.Dongia[i]  %></th>
+                                        <th class="border-r-2">
+                                            <a href="/dish/admin/add/<%= dish.Maloaimon %>" class="inline-block text-sm text-white text-center mr bg-blue-600 rounded no-underline px-[5px] py-[5px]">Thêm món</a>
+                                            <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco[i] %>" class="inline-block text-sm text-white text-center bg-green-600 rounded no-underline px-[5px] py-[5px]">Sửa món</a>
+                                            <form class="inline-block" action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco[i] %>" method="post">
+                                                <button type="submit" class="text-sm text-white text-center mr bg-red-600 rounded no-underline px-[5px] py-[5px]">Xóa món</button>
+                                            </form>
+                                        </th>
+                                    </tr>
+                                <% }} %>
+                            <% }) %>
                         </tbody>
                 <% } %>
             </table>
@@ -55,37 +53,59 @@
         <hr class="my-5 border border-black">
 
         <div>
-            <h3 class="text-black text-2xl not-italic font-bold mb-5">Mon an nhe</h3>
-            <table class="w-50%">
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Món ăn nhẹ</h3>
+            <table class="text-lg">
                 <% if (anotherDishes.length === 0) { %>
-                    <span>Khong con do an nhe</span>
+                    <h2>Không còn đồ ăn nhẹ</h2>
                 <% } else { %>
-                        <thead>
-                            <!-- <th class="w-[5%]"></th> -->
-                            <th class="w-[10%] text-violet-500">Tên</th>
-                            <th class="w-[10%] text-violet-500">Kich co</th>
-                            <th class="w-[10%] text-violet-500">Giá</th>
-                            <th class="w-[10%] text-violet-500">Khac</th>
-                        </thead>
-                        <tbody>
-                        <% anotherDishes.forEach(dish => { if (dish.current_status){ %>
-                            <tr>
-                                <!-- <th><input type="checkbox"></th> -->
-                                <th>
+                    <thead class="bg-zinc-300 h-[50px]">
+                        <th class="w-[5%] border-r-2">Mã loại món</th>
+                        <th class="w-[10%] border-r-2">Tên</th>
+                        <th class="w-[10%] border-r-2">Kích cỡ</th>
+                        <th class="w-[10%] border-r-2">Giá</th>
+                        <th class="w-[10%] border-r-2">Khác</th>
+                    </thead>
+                    <tbody class="bg-zinc-100">
+                    <% anotherDishes.forEach(dish => { %>
+                        <% for (let i = 0; i < dish.Kichco.length; i++){ if (dish.current_status[i]){ %>
+                            <tr class="h-[40px] border-b-2">
+                                <th class="border-r-2"><%= dish.Maloaimon %></th> 
+                                <th class="border-r-2">
                                     <%= dish.Ten  %>
                                 </th>
-                                <th><%= dish.Kichco  %></th>
-                                <th><%= dish.Dongia  %></th>
-                                <th class="flex justify-center items-center">
-                                    <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco %>" class="inline-block rounded-full text-sm text-white text-center bg-violet-800 rounded no-underline px-[20px] py-[10px]">Sua mon</a>
-                                    <form action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco %>" method="post">
-                                        <button type="submit" class="inline-block rounded-full text-sm text-white text-center mr bg-violet-800 rounded no-underline px-[20px] py-[10px]">Xoa mon</button>
+                                <th class="border-r-2"><%= dish.Kichco[i] %></th>
+                                <th class="border-r-2"><%= dish.Dongia[i]  %></th>
+                                <th class="border-r-2">
+                                    <a href="/dish/admin/add/<%= dish.Maloaimon %>" class="inline-block text-sm text-white text-center mr bg-blue-600 rounded no-underline px-[5px] py-[5px]">Thêm món</a>
+                                    <a href="/dish/admin/update/<%= dish.Maloaimon %><%= dish.Kichco[i] %>" class="inline-block text-sm text-white text-center bg-green-600 rounded no-underline px-[5px] py-[5px]">Sửa món</a>
+                                    <form class="inline-block" action="/dish/admin/delete/<%= dish.Maloaimon %><%= dish.Kichco[i] %>" method="post">
+                                        <button type="submit" class="text-sm text-white text-center mr bg-red-600 rounded no-underline px-[5px] py-[5px]">Xóa món</button>
                                     </form>
                                 </th>
                             </tr>
-                            <% }}) %>
-                        </tbody>
+                        <% }} %>
+                    <% }) %>
+                    </tbody>
                 <% } %>
+            </table>
+
+            <hr class="my-5 border border-black">
+            <h3 class="text-black text-2xl not-italic font-bold mb-5">Loại món chưa được có món</h3>
+            <table class="w-[50%] text-lg">
+                <thead class="bg-zinc-300 h-[50px]">
+                    <th class="w-[8%] border-r-2">Mã loại món</th>
+                    <th class="w-[10%] border-r-2">Tên</th>
+                    <th class="w-[10%] border-r-2">Khác</th>
+                </thead>
+                <tbody class="bg-zinc-100">
+                    <% noDishes.forEach(dish => {  %>
+                        <tr class="h-[40px] border-b-2">
+                            <th class="border-r-2"><%= dish.Maloaimon %></th>
+                            <th class="border-r-2"><%= dish.Ten %></th>
+                            <th class="border-r-2"><a href="/dish/admin/add/<%= dish.Maloaimon %>" class="inline-block text-sm text-white text-center mr bg-blue-600 rounded no-underline px-[5px] py-[5px]">Thêm món</a></th>
+                        </tr>
+                    <% }) %>
+                </tbody>
             </table>
         </div>
     </main>

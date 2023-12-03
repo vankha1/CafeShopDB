@@ -1,14 +1,13 @@
 const db = require("../config/db");
 
 const adminPage = (req, res, next) => {
-  console.log(req.session.user_id);
   if (req.session.user_id !== "admin") {
     res.send("You are not an administrator");
     return;
   }
 
   const q =
-    "SELECT Maloaimon, Ten, Kichco, Dongia, Loaimon, current_status FROM (mon NATURAL JOIN loaimon)";
+    "SELECT loaimon.Maloaimon, Ten, Kichco, Dongia, Loaimon, current_status FROM (mon RIGHT OUTER JOIN loaimon on mon.Maloaimon = loaimon.Maloaimon);";
 
   db.query(q, (err, dishes) => {
     if (err) {
@@ -18,20 +17,48 @@ const adminPage = (req, res, next) => {
       });
       return;
     }
-    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Do uong");
-    const anotherDishes = dishes.filter((dish) => dish.Loaimon === "Do an");
+    dishes = dishes.reduce((acc, cur) => {
+      let existingIndex = acc.findIndex(
+        (item) =>
+          item.Maloaimon === cur.Maloaimon &&
+          item.Ten === cur.Ten &&
+          item.Loaimon === cur.Loaimon
+      );
+
+      if (existingIndex === -1) {
+        acc.push({
+          Maloaimon: cur.Maloaimon,
+          Ten: cur.Ten,
+          Loaimon: cur.Loaimon,
+          Kichco: [cur.Kichco],
+          Dongia: [cur.Dongia],
+          current_status: [cur.current_status]
+        });
+      } else {
+        acc[existingIndex].Kichco.push(cur.Kichco);
+        acc[existingIndex].Dongia.push(cur.Dongia);
+        acc[existingIndex].current_status.push(cur.current_status);
+      }
+      return acc;
+    }, []);
+    console.log(dishes);
+    const noDishes = dishes.filter((dish) => dish.current_status.includes(1) === false);
+    const drinkDishes = dishes.filter((dish) => dish.Loaimon === "Do uong" && !noDishes.includes(dish));
+    const anotherDishes = dishes.filter((dish) => dish.Loaimon === "Do an" && !noDishes.includes(dish));
+    console.log(drinkDishes);
 
     res.render("admin/admin.ejs", {
       pageTitle: "Admin",
+      path: 'Mon',
       isAuth: req.session.user_id,
       drinkDishes,
       anotherDishes,
+      noDishes
     });
   });
 };
 
 const adminTablePage = (req, res, next) => {
-  console.log(req.session.user_id);
   if (req.session.user_id !== "admin") {
     res.send("You are not an administrator");
     return;
@@ -55,12 +82,12 @@ const adminTablePage = (req, res, next) => {
       isAuth: req.session.user_id,
       tables,
       fullTables,
+      path: 'Table',
     });
   });
 };
 
 const adminTableDetail = (req, res, next) => {
-  console.log(req.session.user_id);
   const { tableId, startDate, startTime, endDate, endTime } = req.body;
 
   const q = "SELECT tongTienTheoBan(?) AS DoanhThu";
@@ -91,8 +118,8 @@ const adminTableDetail = (req, res, next) => {
   );
 };
 
+// Cart
 const adminCartPage = (req, res, next) => {
-  console.log(req.session.user_id);
   if (req.session.user_id !== "admin") {
     res.send("You are not an administrator");
     return;
@@ -112,12 +139,12 @@ const adminCartPage = (req, res, next) => {
       pageTitle: "Admin",
       isAuth: req.session.user_id,
       orders,
+      path: 'Cart',
     });
   });
 };
 
 const adminCartView = (req, res, next) => {
-  console.log(req.session.user_id);
   const id = parseInt(req.params.id);
 
   const q = "CALL showOrderInfo (?)";
@@ -148,7 +175,6 @@ const adminCartView = (req, res, next) => {
 // Voucher
 
 const adminVoucherPage = (req, res, next) => {
-  console.log(req.session.user_id);
   if (req.session.user_id !== "admin") {
     res.send("You are not an administrator");
     return;
@@ -176,6 +202,7 @@ const adminVoucherPage = (req, res, next) => {
       pageTitle: "Admin",
       isAuth: req.session.user_id,
       voucher,
+      path: 'Voucher',
     });
   });
 };
@@ -183,13 +210,12 @@ const adminVoucherPage = (req, res, next) => {
 // Staff
 
 const adminStaffPage = (req, res, next) => {
-  console.log(req.session.user_id);
   if (req.session.user_id !== "admin") {
     res.send("You are not an administrator");
     return;
   }
 
-  const q = "SELECT * FROM nhanvien";
+  const q = "SELECT * FROM nhanvien WHERE statusNV = 1";
 
   db.query(q, (err, staffs) => {
     if (err) {
@@ -204,10 +230,61 @@ const adminStaffPage = (req, res, next) => {
       pageTitle: "Admin",
       isAuth: req.session.user_id,
       staffs,
-      result: 'Nothing'
+      result: 'Nothing',
+      path: 'Staff'
     });
   });
 };
+
+const sortByName = (req, res) => {
+  const q = "CALL SapXepNhanVienTheoTen()";
+
+  db.query(q, (err, staffs) => {
+    if (err){
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+
+    console.log(staffs);
+
+    res.render('admin/adminStaff.ejs', {
+      pageTitle: "Admin",
+      isAuth: req.session.user_id,
+      staffs: staffs[0],
+      result: 'Nothing',
+      path: 'Staff'
+    })
+  })
+}
+
+const findByName = (req, res) => {
+  const stringName = req.body.stringName;
+
+  const q = "CALL TimKiemNhanVien(?)";
+
+  db.query(q, [stringName], (err, staffs) => {
+    if (err){
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    }
+
+    console.log(staffs);
+
+    res.render('admin/adminStaff.ejs', {
+      pageTitle: "Admin",
+      isAuth: req.session.user_id,
+      staffs: staffs[0],
+      result: 'Nothing',
+      path: 'Staff'
+    })
+  })
+}
 
 const findInvoiceAndStaff = (req, res) => {
   const maxSalary = req.body.maxSalary;
@@ -242,7 +319,8 @@ const findInvoiceAndStaff = (req, res) => {
         pageTitle: "Admin",
         isAuth: req.session.user_id,
         staffs,
-        result: result[0]
+        result: result[0],
+        path: "Staff"
       });
     });
   });
@@ -310,6 +388,8 @@ module.exports = {
   adminCartView,
   adminVoucherPage,
   adminStaffPage,
+  sortByName,
+  findByName,
   findInvoiceAndStaff,
   getUpdateStaff,
   updateStaff,

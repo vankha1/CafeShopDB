@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', dishController.dishPage); 
 
-router.get('/admin/add', dishController.getAddDish);
+router.get('/admin/add/:id', dishController.getAddDish);
 router.post('/admin/add', dishController.addDish);
 
 router.post('/add-to-cart', dishController.addToCart)
