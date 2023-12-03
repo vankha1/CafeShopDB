@@ -66,6 +66,7 @@ const addToCart = (req, res, next) => {
     }
   }
 
+
   console.log(orderedDishes);
   // const cart = { ...result, nameCustomer, addressCustomer, cardNumber };
   // console.log(cart);
@@ -114,7 +115,23 @@ const addToCart = (req, res, next) => {
           }
         );
       }
-      res.send("add success");
+
+      const q2 = "INSERT INTO payment_apply VALUES (?); CALL deleteVoucher_card(?)";
+
+      db.query(q2, [[idDonHang, voucherSerial, voucherId], [voucherId, voucherSerial]], (err, result) => {
+        if (err) {
+          res.status(500).render("500.ejs", {
+            pageTitle: "Error !",
+            message: err.message,
+          });
+          return;
+        }
+
+        res.render("success.ejs", {
+          message: "Bạn đã thêm đơn hàng thành công"
+        });
+      })
+      
     }
   );
 };

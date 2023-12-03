@@ -11,7 +11,7 @@
             <a href="/admin/staff/sort" class="rounded text-sm text-white text-center bg-blue-600 rounded no-underline px-[20px] py-[10px] font-bold">Sắp xếp theo tên</a>
             <form class="ml-20" action="/admin/staff/findByName" method="post">
                 <button type="submit" class="mr-2 rounded text-sm text-white text-center bg-blue-600 rounded no-underline px-[20px] py-[12px] font-bold">Tìm theo tên</button>
-                <input class="border-2 border-zinc-950 p-2" type="text" id="stringName" name="stringName" placeholder="Tên cần tìm">
+                <input class="border-2 border-zinc-950 p-2" type="text" id="stringName" name="stringName" placeholder="Tên cần tìm" required>
             </form>
         </div>
         <hr class="my-5 border border-black">
@@ -57,7 +57,7 @@
         <form class="mb-5" action="/admin/staff" method="post">
             <h3 class="text-black text-2xl not-italic font-bold mb-5">Nhân viên và hóa đơn</h3>
             <label for="maxSalary">NHẬP GIÁ TRỊ LƯƠNG TỐI ĐA CẦN TÌM KIẾM: </label>
-            <input class="ml-10 border-2 border-zinc-950 p-2 " type="number" id="maxSalary" name="maxSalary" placeholder="> 20000">
+            <input class="ml-10 border-2 border-zinc-950 p-2 " type="number" id="maxSalary" name="maxSalary" placeholder="> 20000" required>
             <button type="submit" class="ml-10 py-2 rounded bg-blue-600 text-white text-center text-sm font-medium w-[50px]">Tìm</button>
 
             <a href="/admin/staff" class="ml-5 py-2 px-3 border-t border-b border-blue-600 rounded bg-blue-600 text-white text-center text-sm font-medium w-[50px]">Reset</a>
