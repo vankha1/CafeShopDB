@@ -15,7 +15,7 @@
             <h1 class="mt-5 mb-5 text-center text-primary"><b><%= pageTitle  %></b></h1>
             <form action="/dish/admin/<%= nameBtn === 'Them' ? 'add' : 'update'  %>" method="post">
                 <div class="form-group col-md-4 mb-4">
-                    <label for="foodType">Loai mon</label>
+                    <label for="foodType">Loại món</label>
                     <% if (nameBtn === 'Them'){ %>
                         <input type="text" class="form-control" name="foodType" id="foodType" placeholder="1-20" value="<%= idMaloaimon %>" autocomplete="off" readonly>
                     <% } else { %>
@@ -23,7 +23,7 @@
                     <% } %>
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="size">Kich co</label>
+                    <label for="size">Kích cỡ</label>
                     <% if (nameBtn === 'Them'){ %>
                         <input type="text" class="form-control" name="size" id="size" placeholder="L-M-XL">
                     <% } else { %>
@@ -31,7 +31,7 @@
                     <% } %>
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="price">Don gia</label>
+                    <label for="price">Đơn giá</label>
                     <% if (nameBtn === 'Them'){ %>
                         <input type="text" class="form-control" name="price" id="price">
                     <% } else { %>

@@ -2,7 +2,9 @@ const db = require("../config/db");
 
 const adminPage = (req, res, next) => {
   if (req.session.user_id !== "admin") {
-    res.send("You are not an administrator");
+    res.render("500.ejs", {
+      message: "You are not an administrator"
+    });
     return;
   }
 
@@ -60,7 +62,9 @@ const adminPage = (req, res, next) => {
 
 const adminTablePage = (req, res, next) => {
   if (req.session.user_id !== "admin") {
-    res.send("You are not an administrator");
+    res.render("500.ejs", {
+      message: "You are not an administrator"
+    });
     return;
   }
 
@@ -121,7 +125,9 @@ const adminTableDetail = (req, res, next) => {
 // Cart
 const adminCartPage = (req, res, next) => {
   if (req.session.user_id !== "admin") {
-    res.send("You are not an administrator");
+    res.render("500.ejs", {
+      message: "You are not an administrator"
+    });
     return;
   }
 
@@ -176,7 +182,9 @@ const adminCartView = (req, res, next) => {
 
 const adminVoucherPage = (req, res, next) => {
   if (req.session.user_id !== "admin") {
-    res.send("You are not an administrator");
+    res.render("500.ejs", {
+      message: "You are not an administrator"
+    });
     return;
   }
 
@@ -211,7 +219,9 @@ const adminVoucherPage = (req, res, next) => {
 
 const adminStaffPage = (req, res, next) => {
   if (req.session.user_id !== "admin") {
-    res.send("You are not an administrator");
+    res.render("500.ejs", {
+      message: "You are not an administrator"
+    });
     return;
   }
 
@@ -290,7 +300,9 @@ const findInvoiceAndStaff = (req, res) => {
   const maxSalary = req.body.maxSalary;
 
   if (req.session.user_id !== "admin") {
-    res.send("You are not an administrator");
+    res.render("500.ejs", {
+      message: "You are not an administrator"
+    });
     return;
   }
 
