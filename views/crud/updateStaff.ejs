@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="mt-5 mb-5 text-center text-primary"><b><%= pageTitle  %></b></h1>
+            <h1 class="mt-5 mb-5 text-center text-primary"><b>Cập nhật thông tin cho nhân viên</b></h1>
             <form action="/admin/staff/update/<%= staff.MaNV %>" method="post">
                 <div class="form-row mb-4">
                     <div class="form-group col-md-4 mb-4">
@@ -21,30 +21,30 @@
                     </div>
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="fullname">Ho va ten</label>
+                    <label for="fullname">Họ và tên</label>
                     <input autocomplete="off" value="<%= staff.HoVaTen %>" readonly type="text" class="form-control" name="fullname" id="fullname">
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="address">Dia chi</label>
+                    <label for="address">Địa chỉ</label>
                     <input autocomplete="off" value="<%= staff.DiaChi %>" readonly type="text" class="form-control" name="address" id="address" placeholder="1234 Main St">
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="dateOfBirth">Ngay sinh</label>
+                    <label for="dateOfBirth">Ngày sinh</label>
                     <input autocomplete="off" value="<%= staff.NgaySinh %>" readonly type="date" name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="2000-01-13">
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="phoneNumber">So dien thoai</label>
+                    <label for="phoneNumber">Số điện thoại</label>
                     <input autocomplete="off" value="<%= staff.SDT %>" readonly type="text" name="phoneNumber" class="form-control" id="phoneNumber">
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="supervisorID">Ma giam sat</label>
+                    <label for="supervisorID">Mã giám sát</label>
                     <input type="number" name="supervisorID" class="form-control" id="supervisorID" value="<%= staff.MaGiamSat %>" autocomplete="off">
                 </div>
                 <div class="form-group col-md-4 mb-4">
-                    <label for="salary">Luong</label>
+                    <label for="salary">Lương</label>
                     <input type="number" name="salary" class="form-control" id="salary" placeholder="200000" value="<%= staff.Luong %>"  autocomplete="off">
                 </div>
-                <button type="submit" class="btn btn-primary">Cap nhat</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </form>
         </div>
     </body>

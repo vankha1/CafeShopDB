@@ -3,7 +3,7 @@ const utils = require("../utils/validateDate");
 
 const getSignup = (req, res, next) => {
   res.render("auth/signup.ejs", {
-    pageTitle: "Them nhan vien",
+    pageTitle: "Thêm nhân viên",
   });
 };
 
@@ -91,6 +91,14 @@ const login = (req, res, next) => {
     const query = "SELECT MaNV, email, mk FROM nhanvien where email = ? and statusNV = 1";
 
     db.query(query, [email], (err, user) => {
+      console.log(user, password);
+      if (err){
+        res.status(500).render("500.ejs", {
+          pageTitle: "Error !",
+          message: err.message,
+        });
+        return;
+      }
       // if (!user || user.length === 0){
       //   res.send("Please sign up");
       //   return
@@ -104,9 +112,13 @@ const login = (req, res, next) => {
             res.redirect("/");
           }
         }
+        res.render("500.ejs", {
+          message: "Mật khẩu sai !!!"
+        });
+        return;
       } else {
         res.render("500.ejs", {
-          message: "Email hoặc mật khẩu sai hoặc nhân viên đã nghỉ làm !!!"
+          message: "Email hoặc sai hoặc nhân viên đã nghỉ làm !!!"
         });
       }
     });

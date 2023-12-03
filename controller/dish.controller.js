@@ -140,7 +140,7 @@ const getAddDish = (req, res, next) => {
   const idMaloaimon = req.params.id;
 
   res.render("crud/addDish.ejs", {
-    pageTitle: "Add dish",
+    pageTitle: "Thêm món",
     nameBtn: "Them",
     idMaloaimon,
   });
@@ -210,7 +210,7 @@ const getUpdateDish = (req, res, next) => {
       return;
     }
     res.render("crud/addDish", {
-      pageTitle: "Update dish",
+      pageTitle: "Cập nhật món",
       dish: dish[0],
       nameBtn: "Cap nhat",
     });

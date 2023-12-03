@@ -11,7 +11,7 @@
                     <a class="hover:underline transition" href="/">Trang chủ</a>
                 <% } %>
             </li>
-            <% if (isAuth !== 'admin'){ %>
+            <% if (isAuth && isAuth !== 'admin'){ %>
             <li>
                 <% if(pageTitle == 'Dish') {%>
                     <a class="hover:underline font-bold transition" href="/dish">Món</a>
@@ -33,7 +33,7 @@
                     <a class="hover:underline transition" href="/cart/invoice">Hoá đơn</a>
                 <% } %>
               </li>
-            <% } else { %>
+            <% } else if (isAuth && isAuth === 'admin') { %>
             <li>
                 <% if(pageTitle == 'Admin') {%>
                     <a class="hover:underline font-bold transition" href="/admin">Quản lý</a>

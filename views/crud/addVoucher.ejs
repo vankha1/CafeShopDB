@@ -12,10 +12,10 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="mt-5 mb-5 text-center text-primary"><b>Them the voucher moi</b></h1>
+            <h1 class="mt-5 mb-5 text-center text-primary"><b>Thêm thẻ voucher mới</b></h1>
             <form action="/voucher/admin/<%= option %>/<%= id %>" method="post">
                 <div class="form-group col-md-4 mb-4">
-                    <label for="stt">So thu tu</label>
+                    <label for="stt">Số thứ tự</label>
                     <input type="text" class="form-control" name="stt" id="stt" placeholder="1-<%= option === "delete" ? voucher.length : 'n' %>">
                 </div>
                 <button type="submit" class="btn btn-primary">Them</button>

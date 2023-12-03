@@ -36,7 +36,9 @@ const addTableToCart = (req, res, next) => {
   } = req.body;
 
   if (startTime > endTime) {
-    res.send("Start time is over end time");
+    res.render("500.ejs", {
+      message: "Start time is over end time"
+    });
     return;
   }
 
@@ -102,7 +104,9 @@ const addTableToCart = (req, res, next) => {
             }
 
             console.log(result[0], result[1]);
-            res.send('success');
+            res.render('success.ejs', {
+              message: "Bạn đã đặt bàn thành công !!!"
+            });
           }
         );
       });
@@ -151,7 +155,9 @@ const addTableToCart = (req, res, next) => {
             }
 
             console.log(result[0], result[1]);
-            res.send('success');
+            res.render('success.ejs', {
+              message: "Bạn đã đặt bàn thành công !!!"
+            });
           }
         );
       });

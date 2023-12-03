@@ -12,32 +12,32 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="mt-5 mb-5 text-center text-primary"><b>Chi tiet ban va doanh thu</b></h1>
+            <h1 class="mt-5 mb-5 text-center text-primary"><b>Chi tiết bàn và doanh thu</b></h1>
             
-            <div>
-                <label class="text-black-50">Table ID: </label>
-                <span><%= tableId %></span>
+            <div class="form-group col-md-4 mb-4">
+                <label class="text-black-50">Mã bàn: </label>
+                <input class="form-control" value="<%= tableId %>" readonly>
             </div>
-            <div>
-                <label class="text-black-50">Ngay bat dau: </label>
-                <span><%= startDate %></span>
+            <div class="form-group col-md-4 mb-4">
+                <label class="text-black-50">Ngày bắt đầu: </label>
+                <input class="form-control" value="<%= startDate %>" readonly>
             </div>
-            <div>
-                <label class="text-black-50">Gio bat dau: </label>
-                <span><%= startTime %></span>
+            <div class="form-group col-md-4 mb-4">
+                <label class="text-black-50">Giờ bắt đầu: </label>
+                <input class="form-control" value="<%= startTime %>" readonly>
             </div>
-            <div>
-                <label class="text-black-50">Ngay ket thuc: </label>
-                <span><%= endDate %></span>
+            <div class="form-group col-md-4 mb-4">
+                <label class="text-black-50">Ngày kết thúc: </label>
+                <input class="form-control" value="<%= endDate %>" readonly>
             </div>
-            <div>
-                <label class="text-black-50">Gio ket thuc: </label>   
-                <span><%= endTime %></span>
+            <div class="form-group col-md-4 mb-4">
+                <label class="text-black-50">Giờ kết thúc: </label>   
+                <input class="form-control" value="<%= endTime %>" readonly>
             </div>
             <hr class="my-2 border border-black">
-            <div>
+            <div class="form-group col-md-4 mb-4">
                 <label class="text-black-50">Doanh thu: </label>
-                <span><%= doanhThu %></span>
+                <input class="form-control" value="<%= doanhThu %>" readonly>
             </div>
 
         </div>
