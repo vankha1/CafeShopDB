@@ -359,7 +359,7 @@ const getUpdateStaff = (req, res) => {
 
 const updateStaff = (req, res) => {
   const id = req.params.id;
-  const supervisorID = parseInt(req.body.supervisorID);
+  const supervisorID = req.body.supervisorID ? parseInt(req.body.supervisorID) : null;
   const salary = parseInt(req.body.salary);
 
   const q = "CALL SuaLuongVaMaGiamSatNhanVien(?)";

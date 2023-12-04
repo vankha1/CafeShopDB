@@ -22,10 +22,12 @@
                     <thead class="bg-zinc-300 h-[50px]">
                         <!-- <th class="w-[5%]"></th> -->
                         <th class="w-[5%] border-r-2">STT</th>
-                        <th class="w-[10%] border-r-2">Họ và tên</th>
+                        <th class="w-[15%] border-r-2">Họ và tên</th>
                         <th class="w-[10%] border-r-2">Email</th>
                         <th class="w-[10%] border-r-2">Địa chỉ</th>
                         <th class="w-[10%] border-r-2">SĐT</th>
+                        <th class="w-[10%] border-r-2">Mã giám sát</th>
+                        <th class="w-[5%] border-r-2">Lương</th>
                         <th class="w-[10%] border-r-2">Khác</th>
                     </thead>
                     <tbody class="bg-zinc-100">
@@ -37,6 +39,8 @@
                             <th class="border-r-2"><%= staff.email %></th>
                             <th class="border-r-2"><%= staff.DiaChi %></th>
                             <th class="border-r-2"><%= staff.SDT %></th>
+                            <th class="border-r-2"><%= staff.MaGiamSat ? staff.MaGiamSat : 'Chưa có' %></th>
+                            <th class="border-r-2"><%= staff.Luong %></th>
                             <th class="border-r-2">
                                 <a href="/admin/staff/update/<%= staff.MaNV %>" class="inline-block text-sm text-white text-center bg-green-600 rounded no-underline px-[5px] py-[5px]">Sửa</a>
                                 <form class="inline-block" action="/admin/staff/delete/<%= staff.MaNV %>" method="post">

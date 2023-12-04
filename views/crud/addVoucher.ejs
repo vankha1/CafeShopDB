@@ -16,7 +16,7 @@
             <form action="/voucher/admin/<%= option %>/<%= id %>" method="post">
                 <div class="form-group col-md-4 mb-4">
                     <label for="stt">Số thứ tự</label>
-                    <input type="text" class="form-control" name="stt" id="stt" placeholder="1-<%= option === "delete" ? voucher.length : 'n' %>">
+                    <input type="text" class="form-control" name="stt" id="stt" placeholder="1-<%= option === "delete" ? voucher.length : 'n' %>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Them</button>
             </form>
