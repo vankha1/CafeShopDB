@@ -110,6 +110,7 @@ const login = (req, res, next) => {
             req.session.user_id = user[i].MaNV;
             req.session.save();
             res.redirect("/");
+            return;
           }
         }
         res.render("500.ejs", {
@@ -127,7 +128,13 @@ const login = (req, res, next) => {
 
 const logout = (req, res, next) => {
   req.session.destroy((err) => {
-    if (err) console.log(err);
+    if (err) {
+      res.status(500).render("500.ejs", {
+        pageTitle: "Error !",
+        message: err.message,
+      });
+      return;
+    };
     res.redirect("/");
   });
 };

@@ -25,7 +25,7 @@
                 <div class="form-group col-md-4 mb-4">
                     <label for="size">Kích cỡ</label>
                     <% if (nameBtn === 'Them'){ %>
-                        <input type="text" class="form-control" name="size" id="size" placeholder="L-M-XL">
+                        <input type="text" class="form-control" name="size" id="size" placeholder="L-M-XL" required>
                     <% } else { %>
                         <input type="text" class="form-control" name="size" id="size" value="<%= dish.Kichco %>" autocomplete="off" readonly="<%= nameBtn === 'Them' ? 'false' : 'true' %>" placeholder="L-M-XL">
                     <% } %>
@@ -33,9 +33,9 @@
                 <div class="form-group col-md-4 mb-4">
                     <label for="price">Đơn giá</label>
                     <% if (nameBtn === 'Them'){ %>
-                        <input type="text" class="form-control" name="price" id="price">
+                        <input type="text" class="form-control" name="price" id="price" required>
                     <% } else { %>
-                        <input type="text" class="form-control" name="price" id="price" value="<%= dish.Dongia %>" autocomplete="off">
+                        <input type="text" class="form-control" name="price" id="price" value="<%= dish.Dongia %>" autocomplete="off" required>
                     <% } %>
                 </div>
                 <button type="submit" class="btn btn-primary"><%= nameBtn %></button>

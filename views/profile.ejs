@@ -3,43 +3,43 @@
 <body>
     <%- include('includes/navigation.ejs')  %>    
     <main class="px-24 py-10">
-        <h2 class="text-black text-2xl not-italic font-bold mb-5">Tai khoan</h2>
+        <h2 class="text-black text-2xl not-italic font-bold mb-5">Tài khoản</h2>
         <hr class="my-5 border border-black">
         <form action="/profile/update/<%= isAuth %>" method="post">
 
             <div class="avatar flex items-start">
-                <h3 class="text-black not-italic font-bold mb-5 basis-1/5">
-                    Thong tin ca nhan
-                </h3>
+                <h1 class="text-black not-italic font-bold mb-5 basis-1/5 text-xl">
+                    Thông tin cá nhân
+                </h1>
     
                 <div class="flex flex-col" action="">
                     <label for="email">Email</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.email  %>" autocomplete="off" type="text" id="email" name="email" placeholder="abc@gmail.com">
     
-                    <label for="name">Name</label>
+                    <label for="name">Họ và tên</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.HoVaTen  %>" autocomplete="off" type="text" id="name" name="name" placeholder="max length 50 characters">
 
-                    <label for="password">Password</label>
+                    <label for="password">Mật khẩu</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.mk  %>" autocomplete="off" type="text" id="password" name="password" placeholder="at least 6 characters">
     
-                    <label for="address">Address</label>
+                    <label for="address">Địa chỉ</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.DiaChi  %>" autocomplete="off" type="text" id="address" name="address" placeholder="max length 50 characters">
     
-                    <label for="phoneNumber">Phone number</label>
+                    <label for="phoneNumber">Số điện thoại</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.SDT  %>" autocomplete="off" type="text" id="phoneNumber" name="phoneNumber" placeholder="max length 10 characters">
 
-                    <label for="dateOfBirth">Date of Birth</label>
+                    <label for="dateOfBirth">Ngày sinh</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border" value="<%= staff.NgaySinh.toJSON().slice(0, 10)  %>" autocomplete="off" type="date" id="dateOfBirth" name="dateOfBirth">
 
-                    <label for="supervisorID">Supervisor ID</label>
+                    <label for="supervisorID">Mã giám sát</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border bg-zinc-200" value="<%= staff.MaGiamSat  %>" autocomplete="off" type="text" id="supervisorID" name="supervisorID" readonly="true">
                     
-                    <label for="salary">Salary</label>
+                    <label for="salary">Lương</label>
                     <input class="rounded h-[35px] w-[500px] p-2 mb-5 border bg-zinc-200" value="<%= staff.Luong  %>" autocomplete="off" type="text" id="salary" name="salary" readonly="true">
                 </div>
             </div>
 
-            <button type="submit" class="border-2 py-2 rounded-full bg-violet-800 text-white text-center text-sm font-medium w-[50px]">Luu</button>
+            <button type="submit" class="border-2 py-2 rounded bg-violet-800 text-white text-center text-base font-medium w-[100px]">Lưu</button>
         </form>
     </main>
 <%- include('includes/end.ejs') %>
