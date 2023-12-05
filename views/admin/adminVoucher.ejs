@@ -14,8 +14,8 @@
                 <thead class="bg-zinc-300 h-[50px]">
                     <!-- <th class="w-[5%]"></th> -->
                     <th class="w-[5%] border-r-2">STT</th>
-                    <th class="w-[10%] border-r-2">Phần trăm giảm giá</th>
-                    <th class="w-[10%] border-r-2">Ghi chú</th>
+                    <th class="w-[7%] border-r-2">Phần trăm giảm giá</th>
+                    <th class="w-[15%] border-r-2">Ghi chú</th>
                     <th class="w-[10%] border-r-2">Giảm giá tối đa</th>
                     <th class="w-[10%] border-r-2">Số lượng</th>
                     <th class="w-[10%] border-r-2">Thời gian bắt đầu</th>
@@ -30,9 +30,9 @@
                         <th class="border-r-2">
                             <%= v.discount_percent  %>
                         </th>
-                        <th class="border-r-2"><%= v.note ? v.note : 'Khong co note'  %></th>
+                        <th class="border-r-2"><%= v.note ? v.note : 'Không có'  %></th>
                         <th class="border-r-2"><%= v.max_discount  %></th>
-                        <th class="border-r-2"><%= v.number === 0 ? 'Da het the voucher' : v.number  %></th>
+                        <th class="border-r-2"><%= v.number === 0 ? 'Đã hết thẻ voucher' : v.number  %></th>
                         <th class="border-r-2"><%= v.start_time  %></th>
                         <th class="border-r-2"><%= v.end_time  %></th>
                         <th class="border-r-2">

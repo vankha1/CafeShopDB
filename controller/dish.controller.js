@@ -55,8 +55,10 @@ const addToCart = (req, res, next) => {
   const nameCustomer = req.body.nameCustomer;
   const addressCustomer = req.body.addressCustomer;
   const cardNumber = parseInt(req.body.cardNumber);
-  const voucherId = req.body.voucherId ? req.body.voucherId : "";
-  const voucherSerial = req.body.voucherSerial ? req.body.voucherSerial : "";
+  const voucherId = req.body.voucherId !== '' ? Number(req.body.voucherId) : null;
+  const voucherSerial = req.body.voucherSerial !== '' ? Number(req.body.voucherSerial) : null;
+
+  console.log(typeof voucherId, typeof voucherSerial);
 
   let orderedDishes = { ...req.body };
 
@@ -78,8 +80,8 @@ const addToCart = (req, res, next) => {
         nameCustomer,
         addressCustomer,
         cardNumber,
-        parseInt(voucherId),
-        parseInt(voucherSerial),
+        voucherId,
+        voucherSerial,
       ],
     ],
     (err, result) => {
@@ -91,10 +93,11 @@ const addToCart = (req, res, next) => {
         return;
       }
 
+
       const idDonHang = Object.values(result[0])[0];
 
       for (const key in orderedDishes) {
-        const MaLoaiMon = key.match(/\d+/g).join("");
+        const MaLoaiMon = key.match(/\d+/g)?.join("");
         const Kichco = key.replace(/[0-9]/g, "");
         const Giatheongay = orderedDishes[key][2];
         const Soluong = orderedDishes[key][1];
@@ -116,21 +119,28 @@ const addToCart = (req, res, next) => {
         );
       }
 
-      const q2 = "INSERT INTO payment_apply VALUES (?); CALL deleteVoucher_card(?)";
-
-      db.query(q2, [[idDonHang, voucherSerial, voucherId], [voucherId, voucherSerial]], (err, result) => {
-        if (err) {
-          res.status(500).render("500.ejs", {
-            pageTitle: "Error !",
-            message: err.message,
+      if (voucherId && voucherSerial){
+        const q2 = "INSERT INTO payment_apply VALUES (?); CALL deleteVoucher_card(?)";
+  
+        db.query(q2, [[idDonHang, voucherSerial, voucherId], [voucherId, voucherSerial]], (err, result) => {
+          if (err) {
+            res.status(500).render("500.ejs", {
+              pageTitle: "Error !",
+              message: err.message,
+            });
+            return;
+          }
+  
+          res.render("success.ejs", {
+            message: "Bạn đã thêm đơn hàng thành công"
           });
-          return;
-        }
-
+        })
+      }
+      else {
         res.render("success.ejs", {
           message: "Bạn đã thêm đơn hàng thành công"
         });
-      })
+      }
       
     }
   );

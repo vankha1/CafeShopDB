@@ -88,11 +88,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="voucherId">Mã voucher</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="voucherId" name="voucherId">
+                    <input class="p-1 border w-[500px]" type="number" id="voucherId" name="voucherId">
                 </div>
                 <div class="mb-3">
                     <label for="voucherSerial">Số thứ tự voucher</label><br>
-                    <input class="p-1 border w-[500px]" type="text" id="voucherSerial" name="voucherSerial">
+                    <input class="p-1 border w-[500px]" type="number" id="voucherSerial" name="voucherSerial">
                 </div>
             </div>
             <button type="submit" class="py-2 px-8 rounded-lg bg-purple-800 text-white text-center text-base not-italic font-medium leading-5 float-right">Đặt món</button>
@@ -103,7 +103,7 @@
         const inputCheckbox = document.querySelectorAll('input[type="checkbox"]');
 
         const inputNumberOfDish = document.querySelectorAll('input[type="number"]');
-
+  
         inputNumberOfDish.forEach(input => {
             let num = Number(input.value);
             if (isNaN(num) || num < 0){
