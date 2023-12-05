@@ -7,7 +7,7 @@
         <h2 class="text-black text-2xl not-italic font-bold mb-5">Bàn</h2>
         <form action="/table/add-table-to-cart" method="post">
             <% if (tables.length > 0) { %>
-                <div class="flex gap-20">
+                <div class="flex flex-wrap gap-20">
                     <% tables.forEach(table => { %>
                         <div class="flex w-56 flex-col items-start gap-5">
                             <div class="image">
