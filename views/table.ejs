@@ -9,15 +9,22 @@
             <% if (tables.length > 0) { %>
                 <div class="flex flex-wrap gap-20">
                     <% tables.forEach(table => { %>
-                        <div class="flex w-56 flex-col items-start gap-5">
+                        <div class="flex w-56 flex-col items-start gap-3">
                             <div class="image">
                                 <img class="w-56 h-48" src="/images/6cfbfa0af88fa50a9d19459774cdf677.png" alt="">
                             </div>
-                            <div class="title text-black text-left font-bold"><span>Số lượng : </span><%= table.seats %></div>
+                            <div class="title text-black text-left font-bold"><span>Bàn số : </span><%= table?.fk_tableID %></div>
+                            <div class="title text-black text-left font-bold"><span>Số lượng : </span><%= table?.seats %></div>
                             <div class="flex justify-between items-center self-stretch">
-                                <span class="price"><%= table.current_status ? 'Còn trống' : 'Đã được đặt' %></span>
-                                <% if (table.current_status){ %>
-                                    <input type="checkbox" id="table" name="tableId" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="<%= table.ID  %>"></input>
+                                <div>
+                                    <span class="startDate">Ngày đặt: <%= table?.startDate?.toJSON().slice(0, 10) ? table?.startDate?.toJSON().slice(0, 10) : 'Chưa được đặt' %></span>
+                                    <div>
+                                        <span class="startTime">Giờ bắt đầu: <%= table?.startTime %></span><br/>
+                                        <span class="endTime">Giờ kết thúc: <%= table?.endTime %></span>
+                                    </div>
+                                </div>
+                                <% if (table?.current_status){ %>
+                                    <input type="checkbox" id="table" name="tableId" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" value="<%= table?.ID  %>"></input>
                                 <% } %>
                             </div>
                         </div>

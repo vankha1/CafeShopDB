@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 const tablePage = (req, res, next) => {
-  const q = "SELECT * FROM (bookingtables)";
+  const q = "SELECT * FROM (bookingtables LEFT OUTER JOIN bookinginfo ON bookingtables.ID = bookinginfo.fk_tableID)";
 
   db.query(q, (err, tables) => {
     if (err) {
