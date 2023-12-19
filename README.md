@@ -31,4 +31,4 @@ To use the application, you will need to follow these steps:
 - Add more attributes for some tables such as image, avatar,...
 - I'm still not satisfied with authentication and authorization, so I will find the solution to do this better
 - Because of the deadline, I used EJS template engine to finish in one week. Maybe later I will use Restful API (client with ReactJS or NextJS) to make UI/UX more smoothly.
-
+Overall satisfaction: ★ ★ ☆ ☆ ☆
