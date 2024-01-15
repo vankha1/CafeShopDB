@@ -10,7 +10,7 @@
                     <% drinkDishes.forEach(dish => { %>
                         <div class="flex w-56 flex-col align-center gap-3">
                             <div class="image">
-                                <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
+                                <img class="w-56 h-48" src="<%= dish.image %>" alt="">
                             </div>
                             <div>
                                 <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten.toUpperCase()  %></label>
@@ -44,7 +44,7 @@
                     <% anotherDishes.forEach(dish => { %>
                         <div class="flex w-56 flex-col align-center gap-3">
                             <div class="image">
-                                <img class="w-56 h-48" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
+                                <img class="w-56 h-48" src="<%= dish.image %>" alt="">
                             </div>
                             <div>
                                 <label class="font-bold" for="nameDish<%= dish.Maloaimon  %>"><%= dish.Ten.toUpperCase()  %></label>
@@ -83,7 +83,7 @@
                     <input class="p-1 border w-[500px]" type="text" id="addressCustomer" name="addressCustomer" required>
                 </div>
                 <div class="mb-3">
-                    <label for="cardNumber">Số thẻ</label><br>
+                    <label for="cardNumber">Số thẻ đặt bàn</label><br>
                     <input class="p-1 border w-[500px]" type="text" id="cardNumber" name="cardNumber" required>
                 </div>
                 <div class="mb-3">

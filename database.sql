@@ -273,6 +273,7 @@ CREATE TABLE customerPN (
 drop table if exists bookingTables;
 CREATE TABLE bookingTables (
     ID INT auto_increment PRIMARY KEY,
+    image varchar(255),
     seats INT NOT NULL,
     current_status INT NOT NULL DEFAULT 1 ,
 	CONSTRAINT enum_current_status	CHECK(current_status in ('0','1'))
@@ -299,6 +300,7 @@ drop table if exists LoaiMon;
 CREATE TABLE LoaiMon (
     Maloaimon	int	auto_increment	not null,
     Mota	varchar(255),
+    image	varchar(255),
     Ten		varchar(50)	not null,
     Giobatdau	Time,
     Gioketthuc	Time,
@@ -1132,32 +1134,36 @@ INSERT INTO VOUCHER_CARD (id, STT, current_status) VALUES
     
 INSERT INTO VOUCHER_EFFECTIVE_TIME(id,start_time,end_time)
 VALUES
-	('1','2023-09-30', '2023-12-30' ) ,
-    ('2','2023-01-01','2023-12-30'),
-	('3','2023-09-30', '2023-12-30' ) ,
-    ('4','2023-01-01','2023-12-30'),
-    ('5','2023-09-30', '2023-12-30' ) ,
-    ('6','2023-01-01','2023-12-30'),
-    ('7', '2023-01-01', '2023-02-01'),
-    ('8', '2023-03-01', '2023-04-01'),
-    ('9', '2023-02-15', '2023-03-15'),
-    ('10', '2023-04-15', '2023-05-15'),
-    ('11', '2023-03-01', '2023-04-01'),
-    ('12', '2023-05-01', '2023-06-01'),
-    ('13', '2023-04-15', '2023-05-15'),
-    ('14', '2023-06-15', '2023-07-15'),
-    ('15', '2023-05-01', '2023-06-01'),
-    ('16', '2023-07-01', '2023-08-01'),
-    ('17', '2023-06-15', '2023-07-15'),
-    ('18', '2023-08-15', '2023-09-15'),
-    ('19', '2023-07-01', '2023-08-01'),
-    ('20', '2023-09-01', '2023-10-01'),
-    ('21', '2023-08-15', '2023-09-15'),
-    ('22', '2023-10-15', '2023-11-15'),
-    ('23', '2023-09-01', '2023-10-01'),
-    ('24', '2023-11-01', '2023-12-01'),
-    ('25', '2023-10-15', '2023-11-15');
+	('1','2023-09-30', '2024-12-30' ) ,
+    ('2','2023-01-01','2024-12-30'),
+	('3','2023-09-30', '2024-12-30' ) ,
+    ('4','2023-01-01','2024-12-30'),
+    ('5','2023-09-30', '2024-12-30' ) ,
+    ('6','2023-01-01','2024-12-30'),
+    ('7', '2023-01-01', '2024-02-01'),
+    ('8', '2023-03-01', '2024-04-01'),
+    ('9', '2023-02-15', '2024-03-15'),
+    ('10', '2023-04-15', '2024-05-15'),
+    ('11', '2023-03-01', '2024-04-01'),
+    ('12', '2023-05-01', '2024-06-01'),
+    ('13', '2023-04-15', '2024-05-15'),
+    ('14', '2023-06-15', '2024-07-15'),
+    ('15', '2023-05-01', '2024-06-01'),
+    ('16', '2023-07-01', '2024-08-01'),
+    ('17', '2023-06-15', '2024-07-15'),
+    ('18', '2023-08-15', '2024-09-15'),
+    ('19', '2023-07-01', '2024-08-01'),
+    ('20', '2023-09-01', '2024-10-01'),
+    ('21', '2023-08-15', '2024-09-15'),
+    ('22', '2023-10-15', '2024-11-15'),
+    ('23', '2023-09-01', '2024-10-01'),
+    ('24', '2023-11-01', '2024-12-01'),
+    ('25', '2023-10-15', '2024-11-15');
   
+INSERT INTO dieukienapdung (Maloaimon, Mavoucher, Kichco, minNum)
+VALUES 
+    (1, 1, 'M', 1),
+    (1, 2, 'L', 1);
 
 INSERT INTO bookingTables(seats)
 VALUES
@@ -1227,33 +1233,18 @@ INSERT INTO DonDatTruoc (MaDonHang, MaBan) VALUES
     ('19', '19'),
     ('20', '20');
 
-INSERT INTO LoaiMon (mota,ten,giobatdau,gioketthuc,loaimon)
+INSERT INTO LoaiMon (mota,ten, image ,giobatdau,gioketthuc,loaimon)
 VALUES
-	(NULL,'Pudding','7:00:00','22:00:00','Do an'),
-	(NULL,'Tart','7:00:00','22:00:00','Do an'),
-	(NULL,'Tart trứng','7:00:00','22:00:00','Do an'),
-	(NULL,'Tiramisu classic','7:00:00','22:00:00','Do an'),
-	(NULL,'Tiramisu matcha','7:00:00','22:00:00','Do an'),
-    (NULL,'Trà sữa TCĐĐ','7:00:00','22:00:00','Do uong'),
-	(NULL,'Trà sữa matcha ','7:00:00','22:00:00','Do uong'),
-	(NULL,'Hồng trà','7:00:00','22:00:00','Do uong'),
-	(NULL,'Bạc xỉu','7:00:00','22:00:00','Do uong'),
-	(NULL,'Cà phê phin đá','7:00:00','22:00:00','Do uong'),
-    (NULL, 'Bánh mì pate', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Bún riêu', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Gỏi cuốn', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Nước mía', '7:00:00', '22:00:00', 'Do uong'),
-    (NULL, 'Nước lọc', '7:00:00', '22:00:00', 'Do uong'),
-    (NULL, 'Mì xào', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Cơm rang', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Trà đào', '7:00:00', '22:00:00', 'Do uong'),
-    (NULL, 'Nước chanh', '7:00:00', '22:00:00', 'Do uong'),
-    (NULL, 'Bún chả cá', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Bún bò Huế', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Trà sen', '7:00:00', '22:00:00', 'Do uong'),
-    (NULL, 'Sinh tố bơ', '7:00:00', '22:00:00', 'Do uong'),
-    (NULL, 'Bánh flan', '7:00:00', '22:00:00', 'Do an'),
-    (NULL, 'Bánh tráng trộn', '7:00:00', '22:00:00', 'Do an');
+	(NULL,'Pudding', 'https://cdn.tgdd.vn/2021/04/CookProductThumb/pug-2-620x620.jpg' ,'7:00:00','22:00:00','Do an'),
+	(NULL,'Tart', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlR8lqtn5XZnOvCmovVMf4Kgj4Y4fNtbkoMy2NjqiJCsV_uGIvAJnOKbZ1QOomT4nEHv4&usqp=CAU' ,'7:00:00','22:00:00','Do an'),
+	(NULL,'Tart trứng', 'https://star-kitchen.jp/vnt_upload/class/07_2019/thumbs/570_fw__DSC_0042_1.jpg' ,'7:00:00','22:00:00','Do an'),
+	(NULL,'Tiramisu classic', 'https://star-kitchen.jp/vnt_upload/class/07_2019/thumbs/570_fw__DSC_0042_1.jpg' ,'7:00:00','22:00:00','Do an'),
+	(NULL,'Tiramisu matcha', 'https://cdn.tgdd.vn/2021/03/CookRecipe/Avatar/banh-tiramisu-tra-xanh-thumbnail.jpg' ,'7:00:00','22:00:00','Do an'),
+    (NULL,'Trà sữa TCĐĐ', 'http://coffit.vn/thumbs/540x540x1/upload/product/sua-tuoi-tran-chau-duong-den-9884.jpg' ,'7:00:00','22:00:00','Do uong'),
+	(NULL,'Trà sữa matcha ', 'https://cdn.tgdd.vn/2021/04/CookProduct/Trasuamatcha-1200x676.jpg' ,'7:00:00','22:00:00','Do uong'),
+	(NULL,'Hồng trà', 'https://cdn.tgdd.vn/Files/2020/04/24/1251605/hong-tra-la-gi-cong-dung-cua-hong-tra-voi-suc-kho.jpg' ,'7:00:00','22:00:00','Do uong'),
+	(NULL,'Bạc xỉu', 'https://cdn.tgdd.vn/2021/03/CookProduct/Bac-xiu-la-gi-nguon-goc-va-cach-lam-bac-xiu-thom-ngon-don-gian-tai-nha-0-1200x676.jpg' ,'7:00:00','22:00:00','Do uong'),
+	(NULL,'Cà phê phin đá', 'https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__PHIN_SUADA.jpg' ,'7:00:00','22:00:00','Do uong');
 
     
 

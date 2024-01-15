@@ -17,7 +17,7 @@
             <% dishTypes.forEach(dishType => { %>
                 <div class="flex w-68 flex-col items-start gap-2">
                     <div class="image">
-                        <img class="w-68 h-52 border-4" src="/images/157a66fb2e38fad05e8115b4d4c6cf68.png" alt="">
+                        <img class="w-68 h-52 border-4" src="<%= dishType?.image %>" alt="">
                     </div>
                     <div class="title text-black text-left font-bold text-2xl"><%= dishType.Ten  %></div>
                     <span class="price"><%= dishType.Mota  %></span>
