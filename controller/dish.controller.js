@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 const dishPage = (req, res, next) => {
   const q =
-    "SELECT Maloaimon, Ten, Loaimon, Kichco, dongia, current_status FROM (loaimon natural join mon)";
+    "SELECT Maloaimon, Ten, image, Loaimon, Kichco, dongia, current_status FROM (loaimon natural join mon)";
 
   db.query(q, (err, dishes) => {
     if (err) {
@@ -23,6 +23,7 @@ const dishPage = (req, res, next) => {
 
       if (existingIndex === -1) {
         acc.push({
+          image: cur.image,
           Maloaimon: cur.Maloaimon,
           Ten: cur.Ten,
           Loaimon: cur.Loaimon,
@@ -103,7 +104,7 @@ const addToCart = (req, res, next) => {
         const Soluong = orderedDishes[key][1];
 
         const q1 =
-          "INSERT INTO thuocvemon (Mamon, Madonhang, Kichco, Giatheongay, Soluong) VALUES (?)";
+          "INSERT INTO thuocvemon (Mamon, Madonhang, Kichco, Giatheongay, Soluong) VALUES (?)"; 
         db.query(
           q1,
           [[MaLoaiMon, idDonHang, Kichco, Giatheongay, Soluong]],
